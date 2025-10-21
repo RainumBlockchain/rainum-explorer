@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { AddressBadge } from '@/components/shared/AddressBadge'
 import { ValidatorBadge } from '@/components/shared/ValidatorBadge'
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
+import { VMTypeBadge } from '@/components/shared/VMSelector'
 import { formatHash, formatTimeAgo } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
 import { SearchCommand } from '@/components/shared/SearchCommand'
@@ -151,6 +152,8 @@ export default function TransactionsListPage() {
                         <div className="font-mono text-sm text-[#0019ff] font-medium">
                           {formatHash(tx.hash, 10, 8)}
                         </div>
+                        {/* ⭐ NEW: VM Type Badge */}
+                        <VMTypeBadge type={(tx as any).vm_type || 'evm'} />
                         {tx.zkp_enabled && (
                           <PrivacyBadge privacyLevel={tx.privacy_level} zkpEnabled={tx.zkp_enabled} size="sm" showLabel={false} />
                         )}
@@ -213,6 +216,8 @@ export default function TransactionsListPage() {
                       <div className="font-mono text-sm text-[#0019ff] font-medium truncate">
                         {formatHash(tx.hash, 10, 8)}
                       </div>
+                      {/* ⭐ VM Type Badge */}
+                      <VMTypeBadge type={(tx as any).vm_type || 'evm'} />
                       {tx.zkp_enabled && (
                         <PrivacyBadge privacyLevel={tx.privacy_level} zkpEnabled={tx.zkp_enabled} size="sm" showLabel={false} />
                       )}

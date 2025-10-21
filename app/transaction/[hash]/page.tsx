@@ -9,6 +9,8 @@ import { ArrowRightLeft, Clock, Hash, CheckCircle2, XCircle, ArrowRight, Copy, C
 import Link from 'next/link'
 import { AddressBadge } from '@/components/shared/AddressBadge'
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
+import { VMTypeBadge } from '@/components/shared/VMSelector'
+import { MoveTransactionDetails } from '@/components/shared/MoveTransactionDetails'
 import { formatHash, formatTimestamp, formatTimeAgo } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
 import { useState } from 'react'
@@ -89,6 +91,8 @@ export default function TransactionDetailPage() {
             <div>
               <div className="flex items-center gap-4 mb-4">
                 <h1 className="text-4xl font-bold text-gray-900 tracking-tight">Transaction</h1>
+                {/* ⭐ NEW: VM Type Badge */}
+                <VMTypeBadge type={(tx as any).vm_type || 'evm'} />
                 <div className={'inline-flex items-center gap-2 px-4 py-2 text-sm font-bold backdrop-blur-sm transition-all shadow-sm ' +
                   (tx.status === 'confirmed' ? 'bg-green-50 text-green-700 ring-2 ring-green-200 hover:ring-green-300 hover:bg-green-100' :
                    tx.status === 'failed' ? 'bg-red-50 text-red-700 ring-2 ring-red-200 hover:ring-red-300 hover:bg-red-100' :
@@ -327,6 +331,21 @@ export default function TransactionDetailPage() {
             </div>
           </div>
         </div>
+
+        {/* Move VM Transaction Details */}
+        {(tx as any).vm_type === 'move' && (
+          <div className="bg-white border border-gray-200 hover:border-purple-300 mb-10 transition-all" style={{borderRadius: '4px'}}>
+            <div className="px-8 py-5 border-b border-gray-200 bg-purple-50/30">
+              <div className="flex items-center gap-3">
+                <h2 className="text-lg font-semibold text-gray-900 tracking-tight">Move VM Details</h2>
+                <VMTypeBadge type="move" />
+              </div>
+            </div>
+            <div className="p-8">
+              <MoveTransactionDetails tx={tx as any} />
+            </div>
+          </div>
+        )}
 
         {/* ZKP Privacy Information */}
         {tx.zkp_enabled && tx.privacy_level && tx.privacy_level !== 'none' && (

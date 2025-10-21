@@ -10,6 +10,7 @@ import { AddressBadge } from '@/components/shared/AddressBadge'
 import { ValidatorBadge } from '@/components/shared/ValidatorBadge'
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
 import { VMTypeBadge } from '@/components/shared/VMSelector'
+import { CrossVMIndicator } from '@/components/shared/CrossVMBadge'
 import { formatHash, formatTimeAgo } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
 import { SearchCommand } from '@/components/shared/SearchCommand'
@@ -154,6 +155,8 @@ export default function TransactionsListPage() {
                         </div>
                         {/* ⭐ NEW: VM Type Badge */}
                         <VMTypeBadge type={(tx as any).vm_type || 'evm'} />
+                        {/* 🌉 Cross-VM Indicator */}
+                        <CrossVMIndicator isCrossVM={!!(tx as any).cross_vm_call} />
                         {tx.zkp_enabled && (
                           <PrivacyBadge privacyLevel={tx.privacy_level} zkpEnabled={tx.zkp_enabled} size="sm" showLabel={false} />
                         )}
@@ -218,6 +221,8 @@ export default function TransactionsListPage() {
                       </div>
                       {/* ⭐ VM Type Badge */}
                       <VMTypeBadge type={(tx as any).vm_type || 'evm'} />
+                      {/* 🌉 Cross-VM Indicator */}
+                      <CrossVMIndicator isCrossVM={!!(tx as any).cross_vm_call} />
                       {tx.zkp_enabled && (
                         <PrivacyBadge privacyLevel={tx.privacy_level} zkpEnabled={tx.zkp_enabled} size="sm" showLabel={false} />
                       )}

@@ -11,6 +11,7 @@ import { AddressBadge } from '@/components/shared/AddressBadge'
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
 import { VMTypeBadge } from '@/components/shared/VMSelector'
 import { MoveTransactionDetails } from '@/components/shared/MoveTransactionDetails'
+import { CrossVMBadge, CrossVMIndicator } from '@/components/shared/CrossVMBadge'
 import { formatHash, formatTimestamp, formatTimeAgo } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
 import { useState } from 'react'
@@ -343,6 +344,60 @@ export default function TransactionDetailPage() {
             </div>
             <div className="p-8">
               <MoveTransactionDetails tx={tx as any} />
+            </div>
+          </div>
+        )}
+
+        {/* Cross-VM Call Information */}
+        {(tx as any).cross_vm_call && (
+          <div className="bg-white border border-gray-200 hover:border-purple-400 mb-10 transition-all shadow-sm" style={{borderRadius: '4px'}}>
+            <div className="px-8 py-5 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-blue-50">
+              <div className="flex items-center gap-3">
+                <h2 className="text-lg font-semibold text-gray-900 tracking-tight">Cross-VM Call</h2>
+                <CrossVMBadge
+                  sourceVM={(tx as any).cross_vm_call.source_vm}
+                  targetVM={(tx as any).cross_vm_call.target_vm}
+                />
+              </div>
+            </div>
+            <div className="p-8 space-y-6">
+              <div className="bg-gradient-to-br from-purple-50 to-blue-50 p-6 border border-purple-200 hover:border-purple-300 transition-colors" style={{borderRadius: '4px'}}>
+                <h3 className="text-base font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <ArrowRightLeft size={18} strokeWidth={2.5} className="text-purple-600" />
+                  Cross-VM Execution Flow
+                </h3>
+                <div className="grid grid-cols-3 gap-4 items-center">
+                  <div className="text-center">
+                    <div className="text-sm font-semibold text-gray-600 mb-2">Source VM</div>
+                    <VMTypeBadge type={(tx as any).cross_vm_call.source_vm} />
+                  </div>
+                  <div className="flex justify-center">
+                    <ArrowRight size={32} className="text-purple-500" strokeWidth={2} />
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm font-semibold text-gray-600 mb-2">Target VM</div>
+                    <VMTypeBadge type={(tx as any).cross_vm_call.target_vm} />
+                  </div>
+                </div>
+              </div>
+
+              {(tx as any).cross_vm_call.function_called && (
+                <div>
+                  <div className="text-sm font-semibold text-gray-900 mb-2">Function Called:</div>
+                  <div className="font-mono text-sm bg-gray-50 p-3 border border-gray-200" style={{borderRadius: '4px'}}>
+                    {(tx as any).cross_vm_call.function_called}
+                  </div>
+                </div>
+              )}
+
+              {(tx as any).cross_vm_call.gas_used && (
+                <div>
+                  <div className="text-sm font-semibold text-gray-900 mb-2">Cross-VM Gas Used:</div>
+                  <div className="text-base text-gray-700">
+                    {(tx as any).cross_vm_call.gas_used.toLocaleString()} units
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

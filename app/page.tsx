@@ -233,7 +233,7 @@ export default function Home() {
               }
             `}</style>
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col justify-center min-h-[480px]">
               {/* Slide 0: Wallet Extension */}
               {activeSlide === 0 && (
                 <>

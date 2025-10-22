@@ -85,15 +85,15 @@ export default function Home() {
         {/* Hero Section with Features and Ad Space */}
         <div className="mb-8 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
           {/* Left Side - Explorer Features */}
-          <div className="bg-[#0019ff] rounded border-4 border-white p-8 relative overflow-hidden group hover:shadow-[0_20px_60px_rgba(0,25,255,0.4)] transition-all duration-300">
+          <div className="bg-[#0019ff] rounded border-4 border-white p-10 relative overflow-hidden group hover:shadow-[0_20px_60px_rgba(0,25,255,0.4)] transition-all duration-300">
             {/* White stripe with animated border */}
             <div className="absolute top-0 left-0 w-full h-2 bg-white">
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-400" style={{animation: 'slide-right 3s ease-in-out infinite'}}></div>
             </div>
 
             {/* Decorative corner accents */}
-            <div className="absolute top-2 left-2 w-12 h-12 bg-white/10 rounded"></div>
-            <div className="absolute bottom-2 right-2 w-10 h-10 bg-emerald-400/20 rounded"></div>
+            <div className="absolute top-2 left-2 w-16 h-16 bg-white/10 rounded"></div>
+            <div className="absolute bottom-2 right-2 w-12 h-12 bg-emerald-400/20 rounded"></div>
 
             <style jsx>{`
               @keyframes slide-right {
@@ -104,68 +104,86 @@ export default function Home() {
             `}</style>
 
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded mb-4 shadow-sm">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-semibold text-[#0019ff] uppercase tracking-wider">Live Explorer</span>
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
+                <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Live Network</span>
               </div>
 
-              <h2 className="text-2xl font-bold text-white mb-2">
+              {/* Main Title */}
+              <h1 className="text-4xl font-black text-white mb-3 leading-tight">
                 Explore Rainum Blockchain
-              </h2>
-              <p className="text-blue-100 mb-6 text-sm leading-relaxed">
-                Fast, secure, and privacy-focused blockchain explorer with real-time data and advanced search capabilities.
+              </h1>
+
+              {/* Subtitle with Dual-VM highlight */}
+              <p className="text-blue-100 mb-8 text-base leading-relaxed">
+                The world's first <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded">EVM + Move</span> dual-VM blockchain explorer with real-time data and zero-knowledge privacy.
               </p>
 
-              {/* Feature Highlights */}
-              <div className="space-y-3.5">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0 shadow-md">
-                    <Search className="text-[#0019ff]" size={18} strokeWidth={2} />
+              {/* Feature Grid - 2x2 */}
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                {/* Dual-VM Support */}
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-violet-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <ArrowRightLeft className="text-white" size={20} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="font-black text-gray-900 text-sm">Dual-VM Support</h3>
                   </div>
-                  <div className="pt-0.5">
-                    <h3 className="font-semibold text-white mb-0.5 text-sm">Advanced Search</h3>
-                    <p className="text-xs text-blue-100 leading-relaxed">Search blocks, transactions, accounts, and validators instantly</p>
-                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed">Execute EVM and Move smart contracts on one chain</p>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0 shadow-md">
-                    <Lock className="text-emerald-600" size={18} strokeWidth={2} />
+                {/* ZKP Privacy */}
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Lock className="text-white" size={20} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="font-black text-gray-900 text-sm">ZKP Privacy</h3>
                   </div>
-                  <div className="pt-0.5">
-                    <h3 className="font-semibold text-white mb-0.5 text-sm">ZKP Privacy Protection</h3>
-                    <p className="text-xs text-blue-100 leading-relaxed">Zero-knowledge proofs for private transactions</p>
-                  </div>
+                  <p className="text-xs text-gray-600 leading-relaxed">Zero-knowledge proofs for confidential transactions</p>
                 </div>
 
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0 shadow-md">
-                    <Zap className="text-amber-600" size={18} strokeWidth={2} />
+                {/* Real-Time Data */}
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Zap className="text-white" size={20} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="font-black text-gray-900 text-sm">Real-Time Data</h3>
                   </div>
-                  <div className="pt-0.5">
-                    <h3 className="font-semibold text-white mb-0.5 text-sm">Real-Time Updates</h3>
-                    <p className="text-xs text-blue-100 leading-relaxed">Live blockchain data refreshed every few seconds</p>
+                  <p className="text-xs text-gray-600 leading-relaxed">Live updates every few seconds with instant sync</p>
+                </div>
+
+                {/* Cross-VM Calls */}
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Activity className="text-white" size={20} strokeWidth={2.5} />
+                    </div>
+                    <h3 className="font-black text-gray-900 text-sm">Cross-VM Calls</h3>
                   </div>
+                  <p className="text-xs text-gray-600 leading-relaxed">Seamless interoperability between EVM and Move</p>
                 </div>
               </div>
 
-              {/* Premium Stats Bar */}
-              <div className="mt-6 pt-6 border-t border-white/20 grid grid-cols-4 gap-3">
-                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
-                  <div className="text-xl font-bold text-[#0019ff] leading-tight mb-1.5">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Last Block</div>
+              {/* Live Stats */}
+              <div className="grid grid-cols-4 gap-3">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 min-h-[100px]">
+                  <div className="text-2xl font-black text-[#0019ff] leading-tight mb-2">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
+                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Last Block</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
-                  <div className="text-xl font-bold text-emerald-600 leading-tight mb-1.5">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Current TPS</div>
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 min-h-[100px]">
+                  <div className="text-2xl font-black text-emerald-600 leading-tight mb-2">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
+                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Current TPS</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
-                  <div className="text-xl font-bold text-violet-600 leading-tight mb-1.5">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Online Now</div>
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 min-h-[100px]">
+                  <div className="text-2xl font-black text-violet-600 leading-tight mb-2">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
+                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Online Now</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
-                  <div className="text-xl font-bold text-amber-600 leading-tight mb-1.5">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Total Supply</div>
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 min-h-[100px]">
+                  <div className="text-2xl font-black text-amber-600 leading-tight mb-2">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
+                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Total Supply</div>
                 </div>
               </div>
             </div>

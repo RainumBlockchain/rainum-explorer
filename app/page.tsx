@@ -42,7 +42,7 @@ export default function Home() {
   // Auto-rotate slides every 10 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % 2)
+      setActiveSlide((prev) => (prev + 1) % 3)
     }, 10000)
     return () => clearInterval(interval)
   }, [])
@@ -212,14 +212,14 @@ export default function Home() {
             {/* Navigation Arrows - Top Right */}
             <div className="absolute top-4 right-4 z-20 flex gap-1">
               <button
-                onClick={() => setActiveSlide((prev) => (prev - 1 + 2) % 2)}
-                className="w-6 h-6 bg-white/80 hover:bg-white rounded flex items-center justify-center shadow hover:shadow-md transition-all"
+                onClick={() => setActiveSlide((prev) => (prev - 1 + 3) % 3)}
+                className="w-6 h-6 bg-white/70 hover:bg-white/90 rounded flex items-center justify-center shadow-sm hover:shadow transition-all"
               >
                 <ChevronLeft className="text-[#0019ff]" size={14} strokeWidth={2.5} />
               </button>
               <button
-                onClick={() => setActiveSlide((prev) => (prev + 1) % 2)}
-                className="w-6 h-6 bg-white/80 hover:bg-white rounded flex items-center justify-center shadow hover:shadow-md transition-all"
+                onClick={() => setActiveSlide((prev) => (prev + 1) % 3)}
+                className="w-6 h-6 bg-white/70 hover:bg-white/90 rounded flex items-center justify-center shadow-sm hover:shadow transition-all"
               >
                 <ChevronRight className="text-[#0019ff]" size={14} strokeWidth={2.5} />
               </button>
@@ -370,6 +370,73 @@ export default function Home() {
                       <Rocket size={18} strokeWidth={2} />
                       <span className="font-black">Start Building</span>
                     </a>
+                  </div>
+
+                  <div className="mt-4 text-xs text-center text-blue-100 font-semibold">
+                    <span className="text-white font-black">OPEN SOURCE</span> · Community Built
+                  </div>
+                </>
+              )}
+
+              {/* Slide 2: RainSwap DApp Promo */}
+              {activeSlide === 2 && (
+                <>
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-4 shadow-lg">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Featured DApp</span>
+                  </div>
+
+                  {/* RainSwap Icon */}
+                  <div className="w-16 h-16 bg-purple-600 rounded-xl flex items-center justify-center mb-4 shadow-lg transform group-hover:scale-110 transition-transform duration-300 relative">
+                    <div className="absolute inset-0 bg-purple-400 rounded-xl blur opacity-40"></div>
+                    <ArrowRightLeft className="text-white relative z-10" size={32} strokeWidth={2.5} />
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    RainSwap DEX
+                  </h3>
+
+                  <p className="text-blue-100 text-sm leading-relaxed mb-6">
+                    World's first dual-VM decentralized exchange. Swap EVM and Move tokens seamlessly.
+                  </p>
+
+                  {/* Feature List */}
+                  <div className="space-y-3 mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
+                        <ArrowRightLeft className="text-white" size={18} strokeWidth={2} />
+                      </div>
+                      <span className="text-sm font-semibold text-white">Swap EVM ↔ Move Tokens</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
+                        <Coins className="text-white" size={18} strokeWidth={2} />
+                      </div>
+                      <span className="text-sm font-semibold text-white">Cross-VM Liquidity Pools</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
+                        <Zap className="text-white" size={18} strokeWidth={2} />
+                      </div>
+                      <span className="text-sm font-semibold text-white">Lightning Fast Swaps</span>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="space-y-2">
+                    <a
+                      href="https://rainswap.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
+                    >
+                      <ExternalLink size={18} strokeWidth={2} />
+                      <span className="font-black">Launch RainSwap</span>
+                    </a>
+                    <div className="text-xs text-center text-blue-100 font-semibold">
+                      <span className="text-purple-300 font-black">LIVE ON MAINNET</span> · 50K+ Users
+                    </div>
                   </div>
                 </>
               )}

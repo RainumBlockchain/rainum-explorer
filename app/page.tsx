@@ -151,21 +151,21 @@ export default function Home() {
 
               {/* Premium Stats Bar */}
               <div className="mt-6 pt-6 border-t border-white/20 grid grid-cols-4 gap-3">
-                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
-                  <div className="text-lg font-bold text-[#0019ff]">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Last Block</div>
+                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
+                  <div className="text-xl font-bold text-[#0019ff] leading-tight mb-1.5">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
+                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Last Block</div>
                 </div>
-                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
-                  <div className="text-lg font-bold text-emerald-600">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Current TPS</div>
+                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
+                  <div className="text-xl font-bold text-emerald-600 leading-tight mb-1.5">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
+                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Current TPS</div>
                 </div>
-                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
-                  <div className="text-lg font-bold text-violet-600">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Online Now</div>
+                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
+                  <div className="text-xl font-bold text-violet-600 leading-tight mb-1.5">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
+                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Online Now</div>
                 </div>
-                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
-                  <div className="text-lg font-bold text-amber-600">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
-                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Total Supply</div>
+                <div className="flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded py-4 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 min-h-[88px]">
+                  <div className="text-xl font-bold text-amber-600 leading-tight mb-1.5">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
+                  <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium leading-tight">Total Supply</div>
                 </div>
               </div>
             </div>

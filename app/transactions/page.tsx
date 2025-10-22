@@ -163,11 +163,10 @@ export default function TransactionsListPage() {
                 const blockNumber = (tx as any).block_id || (tx as any).block_number || '...'
 
                 return (
-                <Link
+                <div
                   key={`${tx.hash}-${index}`}
-                  href={'/transaction/' + tx.hash}
+                  className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                 >
-                  <div className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group">
                     <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_150px_130px] gap-4 items-center">
                       {/* Block */}
                       <div>
@@ -329,8 +328,7 @@ export default function TransactionsListPage() {
                         </span>
                       </div>
                     </div>
-                  </div>
-                </Link>
+                </div>
                 )
               })
             ) : (

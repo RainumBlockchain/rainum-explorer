@@ -17,7 +17,7 @@ export default function Home() {
   const [hoveredValidator, setHoveredValidator] = useState<string | null>(null)
   const [hoveredAddress, setHoveredAddress] = useState<string | null>(null)
   const [hoveredBlockHash, setHoveredBlockHash] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<'blocks' | 'transactions'>('blocks')
+  const [activeTab, setActiveTab] = useState<'blocks' | 'transactions'>('transactions')
   const [currentTime, setCurrentTime] = useState(Date.now())
 
   // Update time every second for live age countdown
@@ -286,17 +286,6 @@ export default function Home() {
           <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white">
             <div className="flex items-center gap-4">
               <button
-                onClick={() => setActiveTab('blocks')}
-                className={`flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 ${
-                  activeTab === 'blocks'
-                    ? 'bg-[#0019ff] text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <Blocks size={16} strokeWidth={2} />
-                <span className="text-sm font-semibold">Latest Blocks</span>
-              </button>
-              <button
                 onClick={() => setActiveTab('transactions')}
                 className={`flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 ${
                   activeTab === 'transactions'
@@ -306,6 +295,17 @@ export default function Home() {
               >
                 <Activity size={16} strokeWidth={2} />
                 <span className="text-sm font-semibold">Latest Transactions</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('blocks')}
+                className={`flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 ${
+                  activeTab === 'blocks'
+                    ? 'bg-[#0019ff] text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <Blocks size={16} strokeWidth={2} />
+                <span className="text-sm font-semibold">Latest Blocks</span>
               </button>
             </div>
             <Link
@@ -529,20 +529,14 @@ export default function Home() {
           <div>
 
             {/* Column Headers */}
-            <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Transaction Hash</div>
-                </div>
-                <div className="flex-[1.5] text-center">
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">From → To</div>
-                </div>
-                <div className="text-right" style={{ width: '140px' }}>
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Amount</div>
-                </div>
-                <div className="text-center" style={{ width: '100px' }}>
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Status</div>
-                </div>
+            <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
+              <div className="grid grid-cols-[180px_100px_1fr_1fr_120px_100px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+                <div>TX Hash</div>
+                <div>Age</div>
+                <div>From</div>
+                <div>To</div>
+                <div className="text-right">Amount</div>
+                <div className="text-center">Status</div>
               </div>
             </div>
 
@@ -568,100 +562,95 @@ export default function Home() {
               ) : transactions && transactions.length > 0 ? (
                 transactions.slice(0, 10).map((tx: Transaction, index: number) => {
                   const isPrivate = tx.zkp_enabled && tx.privacy_level === 'full'
+                  const ageText = getAge(tx.timestamp)
 
                   return (
                   <div
                     key={`${tx.hash}-${index}`}
-                    className="px-6 py-3 transition-all border-l-4 border-transparent hover:border-transparent border-t border-gray-200 group"
+                    className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                   >
-                    <div className="flex items-center gap-4">
-                      {/* TX Hash - Left */}
-                      <div className="flex-1 min-w-0 flex items-center gap-1.5">
-                        <Link href={'/transaction/' + tx.hash}>
-                          <span className="font-mono text-xs font-bold text-[#0019ff] hover:text-[#0014cc] transition-colors">
-                            {formatHash(tx.hash, 8, 6)}
-                          </span>
+                    <div className="grid grid-cols-[180px_100px_1fr_1fr_120px_100px] gap-4 items-center">
+                      {/* TX Hash */}
+                      <Link href={'/transaction/' + tx.hash}>
+                        <span className="font-mono text-base font-semibold text-gray-700 hover:text-[#0019ff] transition-colors">
+                          {formatHash(tx.hash, 10, 8)}
+                        </span>
+                      </Link>
+
+                      {/* Age */}
+                      <span className="text-base text-gray-600 font-semibold">{ageText} ago</span>
+
+                      {/* From */}
+                      {isPrivate ? (
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-purple-50 rounded">
+                          <ShieldCheck className="text-purple-600" size={18} strokeWidth={2} />
+                          <span className="text-base font-semibold text-purple-700">Private</span>
+                        </div>
+                      ) : (
+                        <Link
+                          href={'/account/' + tx.from}
+                          className="inline-flex items-center gap-2 px-2 py-1 rounded"
+                          style={{
+                            backgroundColor: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '#fef3e7' : 'transparent',
+                            outline: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '2px dashed #f39c12' : 'none',
+                            outlineOffset: '-2px',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transitionDelay: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '0.25s' : '0s'
+                          }}
+                          onMouseEnter={() => setHoveredAddress(tx.from)}
+                          onMouseLeave={() => setHoveredAddress(null)}
+                        >
+                          <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
+                            <Avatar address={tx.from} avatarUrl={null} size={24} />
+                          </div>
+                          <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.from, 8, 6)}</span>
                         </Link>
-                        {tx.zkp_enabled && (
-                          <PrivacyBadge
-                            privacyLevel={tx.privacy_level || 'none'}
-                            zkpEnabled={true}
-                            size="sm"
-                            showLabel={false}
-                          />
-                        )}
-                      </div>
+                      )}
 
-                      {/* From -> To - Center */}
-                      <div className="flex-[1.5] flex items-center justify-center gap-1.5 text-xs min-w-0">
-                        {isPrivate ? (
-                          <>
-                            <div className="flex items-center gap-1 px-2 py-0.5 bg-purple-50 rounded text-purple-700">
-                              <ShieldCheck size={12} />
-                              <span className="font-medium">Private</span>
-                            </div>
-                            <ArrowRight size={10} className="text-gray-300 flex-shrink-0" strokeWidth={2} />
-                            <div className="flex items-center gap-1 px-2 py-0.5 bg-purple-50 rounded text-purple-700">
-                              <ShieldCheck size={12} />
-                              <span className="font-medium">Private</span>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <Link
-                              href={'/account/' + tx.from}
-                              className="flex items-center gap-1 px-2 py-0.5 rounded transition-all min-w-0"
-                              style={{
-                                backgroundColor: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '#fef3e7' : '#f3f4f6',
-                                outline: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                                outlineOffset: '-2px'
-                              }}
-                              onMouseEnter={() => setHoveredAddress(tx.from)}
-                              onMouseLeave={() => setHoveredAddress(null)}
-                            >
-                              <div className="flex-shrink-0">
-                                <Avatar address={tx.from} avatarUrl={null} size={16} />
-                              </div>
-                              <span className="font-mono text-gray-700 truncate">{formatHash(tx.from, 6, 4)}</span>
-                            </Link>
-                            <ArrowRight size={10} className="text-gray-300 flex-shrink-0" strokeWidth={2} />
-                            <Link
-                              href={'/account/' + tx.to}
-                              className="flex items-center gap-1 px-2 py-0.5 rounded transition-all min-w-0"
-                              style={{
-                                backgroundColor: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '#fef3e7' : '#f3f4f6',
-                                outline: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                                outlineOffset: '-2px'
-                              }}
-                              onMouseEnter={() => setHoveredAddress(tx.to)}
-                              onMouseLeave={() => setHoveredAddress(null)}
-                            >
-                              <div className="flex-shrink-0">
-                                <Avatar address={tx.to} avatarUrl={null} size={16} />
-                              </div>
-                              <span className="font-mono text-gray-700 truncate">{formatHash(tx.to, 6, 4)}</span>
-                            </Link>
-                          </>
-                        )}
-                      </div>
+                      {/* To */}
+                      {isPrivate ? (
+                        <div className="flex items-center gap-2 px-3 py-1.5 bg-purple-50 rounded">
+                          <ShieldCheck className="text-purple-600" size={18} strokeWidth={2} />
+                          <span className="text-base font-semibold text-purple-700">Private</span>
+                        </div>
+                      ) : (
+                        <Link
+                          href={'/account/' + tx.to}
+                          className="inline-flex items-center gap-2 px-2 py-1 rounded"
+                          style={{
+                            backgroundColor: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '#fef3e7' : 'transparent',
+                            outline: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '2px dashed #f39c12' : 'none',
+                            outlineOffset: '-2px',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transitionDelay: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '0.25s' : '0s'
+                          }}
+                          onMouseEnter={() => setHoveredAddress(tx.to)}
+                          onMouseLeave={() => setHoveredAddress(null)}
+                        >
+                          <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
+                            <Avatar address={tx.to} avatarUrl={null} size={24} />
+                          </div>
+                          <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.to, 8, 6)}</span>
+                        </Link>
+                      )}
 
-                      {/* Amount - Right */}
-                      <div className="text-right" style={{ width: '140px' }}>
+                      {/* Amount */}
+                      <div className="text-right">
                         {isPrivate ? (
-                          <div className="flex items-center justify-end gap-1 text-purple-700">
-                            <ShieldCheck size={12} />
-                            <span className="text-xs font-bold">Private</span>
+                          <div className="flex items-center justify-end gap-1.5 text-purple-700">
+                            <ShieldCheck size={16} strokeWidth={2} />
+                            <span className="text-base font-bold">Private</span>
                           </div>
                         ) : (
-                          <span className="text-xs font-bold text-gray-900">
+                          <span className="text-base font-bold text-gray-900">
                             {formatBalance(tx.amount).full} RAIN
                           </span>
                         )}
                       </div>
 
-                      {/* Status - Right */}
-                      <div className="text-center" style={{ width: '100px' }}>
-                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold ${
+                      {/* Status */}
+                      <div className="text-center">
+                        <span className={`inline-flex items-center px-4 py-2 rounded text-base font-black ${
                           tx.status === 'confirmed' || !tx.status
                             ? 'bg-emerald-50 text-emerald-700'
                             : tx.status === 'pending'

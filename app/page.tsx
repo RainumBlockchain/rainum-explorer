@@ -597,8 +597,8 @@ export default function Home() {
                             className="inline-flex items-center gap-2 font-mono text-base font-semibold px-3 py-1.5 rounded"
                             style={{
                               backgroundColor: hoveredBlockHash === block.hash ? '#fef3e7' : 'transparent',
-                              outline: hoveredBlockHash === block.hash ? '4px dashed #f39c12' : 'none',
-                              outlineOffset: '-4px',
+                              outline: hoveredBlockHash === block.hash ? '2px dashed #f39c12' : 'none',
+                              outlineOffset: '-2px',
                               color: hoveredBlockHash === block.hash ? '#0019ff' : '#374151',
                               transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                               transitionDelay: hoveredBlockHash === block.hash ? '0.25s' : '0s'
@@ -672,10 +672,11 @@ export default function Home() {
                       <div className="col-span-2 flex justify-end items-center">
                         <Link
                           href={'/account/' + block.validator}
-                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200"
+                          className="inline-flex items-center gap-2 px-3 py-2 bg-amber-50 border border-amber-200"
                           style={{
-                            outline: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '4px dashed #f39c12' : 'none',
-                            outlineOffset: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '4px' : '0',
+                            borderRadius: '4px',
+                            outline: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '2px dashed #f39c12' : 'none',
+                            outlineOffset: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '2px' : '0',
                             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             transitionDelay: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '0.25s' : '0s'
                           }}

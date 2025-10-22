@@ -605,6 +605,22 @@ export default function Home() {
                               <Avatar address={tx.from} avatarUrl={null} size={24} />
                             </div>
                             <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.from, 8, 6)}</span>
+                            {hoveredAddress?.toLowerCase() === tx.from.toLowerCase() && (
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  navigator.clipboard.writeText(tx.from);
+                                }}
+                                className="inline-flex items-center justify-center w-5 h-5 rounded bg-[#f39c12] hover:bg-[#e67e22] text-white transition-colors"
+                                title="Copy full address"
+                              >
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                              </button>
+                            )}
                           </Link>
                         )}
                       </div>
@@ -634,6 +650,22 @@ export default function Home() {
                               <Avatar address={tx.to} avatarUrl={null} size={24} />
                             </div>
                             <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.to, 8, 6)}</span>
+                            {hoveredAddress?.toLowerCase() === tx.to.toLowerCase() && (
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  navigator.clipboard.writeText(tx.to);
+                                }}
+                                className="inline-flex items-center justify-center w-5 h-5 rounded bg-[#f39c12] hover:bg-[#e67e22] text-white transition-colors"
+                                title="Copy full address"
+                              >
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                              </button>
+                            )}
                           </Link>
                         )}
                       </div>

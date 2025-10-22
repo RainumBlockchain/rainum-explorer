@@ -530,12 +530,15 @@ export default function Home() {
 
             {/* Column Headers */}
             <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
-              <div className="grid grid-cols-[220px_100px_1fr_1fr_150px_130px] gap-6 text-base font-bold text-gray-700 uppercase tracking-wide">
+              <div className="grid grid-cols-[220px_100px_80px_100px_1fr_1fr_150px_100px_130px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
                 <div>TX Hash</div>
                 <div>Age</div>
+                <div>VM</div>
+                <div>Type</div>
                 <div>From</div>
                 <div>To</div>
                 <div className="text-right">Amount</div>
+                <div className="text-center">Block</div>
                 <div className="text-center">Status</div>
               </div>
             </div>
@@ -564,12 +567,19 @@ export default function Home() {
                   const isPrivate = tx.zkp_enabled && tx.privacy_level === 'full'
                   const ageText = getAge(tx.timestamp)
 
+                  // Determine VM type (mock data until API provides it)
+                  const vmType = (tx as any).vm_type || 'EVM'
+                  const txType = tx.to ? 'Transfer' : 'Contract'
+
+                  // Extract block number from block_hash if available
+                  const blockNumber = (tx as any).block_id || (tx as any).block_number || '...'
+
                   return (
                   <div
                     key={`${tx.hash}-${index}`}
                     className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                   >
-                    <div className="grid grid-cols-[220px_100px_1fr_1fr_150px_130px] gap-6 items-center">
+                    <div className="grid grid-cols-[220px_100px_80px_100px_1fr_1fr_150px_100px_130px] gap-4 items-center">
                       {/* TX Hash */}
                       <Link href={'/transaction/' + tx.hash}>
                         <span className="font-mono text-base font-semibold text-gray-700 hover:text-[#0019ff] transition-colors">
@@ -579,6 +589,26 @@ export default function Home() {
 
                       {/* Age */}
                       <span className="text-base text-gray-600 font-semibold">{ageText} ago</span>
+
+                      {/* VM Type */}
+                      <div>
+                        <span className={`inline-flex items-center px-2 py-1 rounded text-xs font-black ${
+                          vmType === 'EVM'
+                            ? 'bg-blue-50 text-blue-700'
+                            : vmType === 'Move'
+                            ? 'bg-violet-50 text-violet-700'
+                            : 'bg-emerald-50 text-emerald-700'
+                        }`}>
+                          {vmType}
+                        </span>
+                      </div>
+
+                      {/* Type */}
+                      <div>
+                        <span className="text-sm font-semibold text-gray-600">
+                          {txType}
+                        </span>
+                      </div>
 
                       {/* From */}
                       <div>
@@ -681,6 +711,19 @@ export default function Home() {
                           <span className="text-base font-bold text-gray-900">
                             {formatBalance(tx.amount).full} RAIN
                           </span>
+                        )}
+                      </div>
+
+                      {/* Block */}
+                      <div className="text-center">
+                        {blockNumber !== '...' ? (
+                          <Link href={'/block/' + blockNumber}>
+                            <span className="text-sm font-bold text-[#0019ff] hover:text-[#0014cc] transition-colors">
+                              #{blockNumber}
+                            </span>
+                          </Link>
+                        ) : (
+                          <span className="text-sm font-semibold text-gray-400">...</span>
                         )}
                       </div>
 

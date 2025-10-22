@@ -129,55 +129,91 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side - Sponsor/Ad Banner */}
-          <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded border border-gray-200 p-8 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-            {/* Subtle animated orbs */}
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute -top-12 -left-12 w-40 h-40 bg-blue-200 rounded-full filter blur-3xl animate-pulse"></div>
-              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-cyan-200 rounded-full filter blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          {/* Right Side - Rainum Wallet Extension Promo */}
+          <div className="bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50 rounded border border-purple-200 p-8 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:shadow-2xl transition-all duration-500">
+            {/* Animated gradient orbs */}
+            <div className="absolute inset-0 opacity-40">
+              <div className="absolute -top-16 -left-16 w-48 h-48 bg-gradient-to-br from-purple-300 to-purple-400 rounded-full filter blur-3xl animate-pulse"></div>
+              <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-gradient-to-br from-blue-300 to-blue-400 rounded-full filter blur-3xl animate-pulse" style={{animationDelay: '1.5s'}}></div>
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-cyan-200 to-cyan-300 rounded-full filter blur-2xl animate-pulse" style={{animationDelay: '0.7s'}}></div>
             </div>
 
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-50"></div>
+            {/* Animated shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+
+            {/* Top decorative line */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 animate-pulse"></div>
 
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 px-4 py-1.5 rounded-full mb-5 shadow-sm">
-                <span className="text-xs font-bold text-white uppercase tracking-wider">Sponsored by</span>
+              {/* Featured Badge */}
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-1.5 rounded-full mb-4 shadow-lg">
+                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <span className="text-xs font-bold text-white uppercase tracking-wider">Featured Extension</span>
               </div>
 
-              <h3 className="text-4xl font-black text-gray-900 mb-3 tracking-tight">
-                andr.e
+              {/* Wallet Icon with Glow */}
+              <div className="relative inline-block mb-4">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-blue-400 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
+                <div className="relative w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                </div>
+              </div>
+
+              <h3 className="text-3xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2 tracking-tight">
+                Rainum Wallet
               </h3>
+              <div className="text-sm font-semibold text-gray-700 mb-3">Browser Extension</div>
 
               <p className="text-gray-600 mb-6 max-w-sm text-sm leading-relaxed">
-                Building the future of <span className="text-blue-600 font-semibold">decentralized infrastructure</span>. Enterprise-grade blockchain solutions.
+                Your gateway to the <span className="text-purple-600 font-bold">world's first dual-VM blockchain</span>. EVM + Move in one wallet.
               </p>
 
-              <div className="space-y-2.5 mb-6">
-                <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-green-300 hover:shadow-sm transition-all duration-200">
-                  <ShieldCheck className="text-green-600" size={15} strokeWidth={2} />
-                  <span className="font-medium">Secure Infrastructure</span>
+              {/* Feature Pills */}
+              <div className="space-y-2 mb-6">
+                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-purple-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-purple-400 hover:shadow-md transition-all duration-200">
+                  <ArrowRightLeft className="text-purple-600" size={15} strokeWidth={2.5} />
+                  <span className="font-semibold">EVM + Move Dual-VM</span>
                 </div>
-                <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-yellow-300 hover:shadow-sm transition-all duration-200">
-                  <Zap className="text-yellow-600" size={15} strokeWidth={2} />
-                  <span className="font-medium">Lightning Fast</span>
+                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-blue-400 hover:shadow-md transition-all duration-200">
+                  <Lock className="text-blue-600" size={15} strokeWidth={2.5} />
+                  <span className="font-semibold">Built-in ZKP Privacy</span>
                 </div>
-                <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-blue-300 hover:shadow-sm transition-all duration-200">
-                  <Users className="text-blue-600" size={15} strokeWidth={2} />
-                  <span className="font-medium">Enterprise Ready</span>
+                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-cyan-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-cyan-400 hover:shadow-md transition-all duration-200">
+                  <Zap className="text-cyan-600" size={15} strokeWidth={2.5} />
+                  <span className="font-semibold">1-Click Cross-VM Calls</span>
                 </div>
               </div>
 
-              <a
-                href="#"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2.5 rounded-lg font-semibold shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 text-sm"
-              >
-                Learn More
-                <ExternalLink size={16} strokeWidth={2} />
-              </a>
+              {/* Download Buttons */}
+              <div className="flex gap-3 justify-center mb-4">
+                <a
+                  href="https://chrome.google.com/webstore"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-sm"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                  Chrome
+                </a>
+                <a
+                  href="https://addons.mozilla.org/firefox/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-800 border-2 border-purple-300 hover:border-purple-400 px-5 py-2.5 rounded-lg font-bold shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200 text-sm"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  </svg>
+                  Firefox
+                </a>
+              </div>
 
-              <div className="mt-6 text-xs text-gray-500 border-t border-gray-200 pt-4">
-                Want to sponsor this space? <span className="text-blue-600 font-semibold cursor-pointer hover:text-blue-700">Contact us</span>
+              <div className="text-xs text-gray-500 font-medium">
+                <span className="text-purple-600 font-bold">FREE</span> · Available Now
               </div>
             </div>
           </div>

@@ -4,7 +4,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useQuery } from '@tanstack/react-query'
 import { getStatus, getBlocks, getTransactions, getValidators, getTotalSupply, type Block, type Transaction, type ValidatorInfo } from '@/lib/api/rainum-api'
-import { Blocks, Activity, Users, TrendingUp, ArrowRight, ArrowRightLeft, ShieldCheck, Coins, Search, Zap, Lock, ExternalLink } from 'lucide-react'
+import { Blocks, Activity, Users, TrendingUp, ArrowRight, ArrowRightLeft, ShieldCheck, Coins, Search, Zap, Lock, ExternalLink, Info, X } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar } from '@/components/shared/Avatar'
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
@@ -19,6 +19,7 @@ export default function Home() {
   const [hoveredBlockHash, setHoveredBlockHash] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'blocks' | 'transactions'>('transactions')
   const [currentTime, setCurrentTime] = useState(Date.now())
+  const [isVMInfoOpen, setIsVMInfoOpen] = useState(false)
 
   // Update time every second for live age countdown
   useEffect(() => {
@@ -26,6 +27,15 @@ export default function Home() {
       setCurrentTime(Date.now())
     }, 1000)
     return () => clearInterval(interval)
+  }, [])
+
+  // Close modal on ESC key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsVMInfoOpen(false)
+    }
+    window.addEventListener('keydown', handleEsc)
+    return () => window.removeEventListener('keydown', handleEsc)
   }, [])
 
   const getAge = (timestamp: number) => {
@@ -534,7 +544,16 @@ export default function Home() {
                 <div>Block</div>
                 <div>TX Hash</div>
                 <div>Age</div>
-                <div>VM</div>
+                <div className="flex items-center gap-1">
+                  <span>VM</span>
+                  <button
+                    onClick={() => setIsVMInfoOpen(true)}
+                    className="inline-flex items-center justify-center w-4 h-4 rounded-full text-gray-500 hover:text-[#0019ff] hover:bg-gray-200 transition-all"
+                    title="What is VM Type?"
+                  >
+                    <Info size={14} strokeWidth={2.5} />
+                  </button>
+                </div>
                 <div>Type</div>
                 <div>From</div>
                 <div>To</div>
@@ -756,6 +775,72 @@ export default function Home() {
       </main>
 
       <Footer />
+
+      {/* VM Info Modal */}
+      {isVMInfoOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setIsVMInfoOpen(false)}
+        >
+          <div
+            className="bg-gray-800 rounded-lg max-w-2xl w-full shadow-2xl animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-700">
+              <h2 className="text-2xl font-bold text-white">Virtual Machine Types</h2>
+              <button
+                onClick={() => setIsVMInfoOpen(false)}
+                className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+              >
+                <X size={20} strokeWidth={2} />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="px-6 py-6 space-y-6">
+              {/* EVM */}
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center">
+                  <span className="text-white font-black text-sm">EVM</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-1">EVM (Ethereum Virtual Machine)</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    Execute Solidity smart contracts compatible with Ethereum. Most widely used blockchain runtime with extensive tooling and developer ecosystem.
+                  </p>
+                </div>
+              </div>
+
+              {/* Move VM */}
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-violet-500 flex items-center justify-center">
+                  <span className="text-white font-black text-xs">Move</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-1">Move VM</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    Execute Move smart contracts (Aptos/Sui inspired). Enhanced safety with resource-oriented programming and formal verification capabilities.
+                  </p>
+                </div>
+              </div>
+
+              {/* Cross-VM */}
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center">
+                  <ArrowRightLeft className="text-white" size={18} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-1">Cross-VM Transaction</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    Transaction that calls between EVM ↔ Move VMs. <span className="text-emerald-400 font-semibold">Rainum's unique dual-VM interoperability feature</span> enabling seamless communication across different blockchain runtimes.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

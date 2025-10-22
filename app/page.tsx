@@ -238,17 +238,17 @@ export default function Home() {
               {activeSlide === 0 && (
                 <>
               {/* Badges - Fixed at top */}
-              <div className="flex items-center gap-3 mb-6">
-                <div className="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded shadow-lg">
+              <div className="flex items-center gap-2 mb-6">
+                <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded shadow-lg">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Featured</span>
+                  <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Wallet</span>
                 </div>
                 <a
                   href="https://testnet.rainum.io"
-                  className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 px-4 py-1.5 rounded shadow-lg transform hover:scale-105 hover:-translate-y-0.5 transition-all duration-200"
+                  className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 px-3 py-1.5 rounded shadow-lg transform hover:scale-105 hover:-translate-y-0.5 transition-all duration-200"
                 >
                   <Coins className="text-white" size={14} strokeWidth={2.5} />
-                  <span className="text-xs font-black text-white uppercase tracking-wider">Try Testnet</span>
+                  <span className="text-xs font-black text-white uppercase tracking-wider">Testnet</span>
                 </a>
               </div>
 
@@ -313,9 +313,11 @@ export default function Home() {
               {activeSlide === 1 && (
                 <>
                   {/* Badge - Fixed at top */}
-                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
-                    <div className="w-2 h-2 bg-violet-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">DApps</span>
+                  <div className="mb-6">
+                    <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded shadow-lg">
+                      <div className="w-2 h-2 bg-violet-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Developer</span>
+                    </div>
                   </div>
 
                   {/* Centered Content */}
@@ -388,9 +390,11 @@ export default function Home() {
               {activeSlide === 2 && (
                 <>
                   {/* Badge - Fixed at top */}
-                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Live DApp</span>
+                  <div className="mb-6">
+                    <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded shadow-lg">
+                      <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Live DEX</span>
+                    </div>
                   </div>
 
                   {/* Centered Content */}

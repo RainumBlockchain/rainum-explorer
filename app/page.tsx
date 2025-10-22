@@ -209,31 +209,20 @@ export default function Home() {
             <div className="absolute top-2 right-2 w-12 h-12 bg-white/10 rounded"></div>
             <div className="absolute bottom-2 left-2 w-10 h-10 bg-cyan-400/20 rounded"></div>
 
-            {/* Navigation Arrows */}
-            <button
-              onClick={() => setActiveSlide((prev) => (prev - 1 + 2) % 2)}
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110"
-            >
-              <ChevronLeft className="text-[#0019ff]" size={20} strokeWidth={3} />
-            </button>
-            <button
-              onClick={() => setActiveSlide((prev) => (prev + 1) % 2)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110"
-            >
-              <ChevronRight className="text-[#0019ff]" size={20} strokeWidth={3} />
-            </button>
-
-            {/* Dots Navigation */}
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-              {[0, 1].map((index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    activeSlide === index ? 'bg-white w-6' : 'bg-white/50 hover:bg-white/75'
-                  }`}
-                />
-              ))}
+            {/* Navigation Arrows - Top Right */}
+            <div className="absolute top-4 right-4 z-20 flex gap-1">
+              <button
+                onClick={() => setActiveSlide((prev) => (prev - 1 + 2) % 2)}
+                className="w-6 h-6 bg-white/80 hover:bg-white rounded flex items-center justify-center shadow hover:shadow-md transition-all"
+              >
+                <ChevronLeft className="text-[#0019ff]" size={14} strokeWidth={2.5} />
+              </button>
+              <button
+                onClick={() => setActiveSlide((prev) => (prev + 1) % 2)}
+                className="w-6 h-6 bg-white/80 hover:bg-white rounded flex items-center justify-center shadow hover:shadow-md transition-all"
+              >
+                <ChevronRight className="text-[#0019ff]" size={14} strokeWidth={2.5} />
+              </button>
             </div>
 
             <style jsx>{`

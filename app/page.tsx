@@ -530,7 +530,7 @@ export default function Home() {
 
             {/* Column Headers */}
             <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
-              <div className="grid grid-cols-[180px_100px_1fr_1fr_120px_100px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+              <div className="grid grid-cols-[220px_100px_1fr_1fr_150px_130px] gap-6 text-base font-bold text-gray-700 uppercase tracking-wide">
                 <div>TX Hash</div>
                 <div>Age</div>
                 <div>From</div>
@@ -569,7 +569,7 @@ export default function Home() {
                     key={`${tx.hash}-${index}`}
                     className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                   >
-                    <div className="grid grid-cols-[180px_100px_1fr_1fr_120px_100px] gap-4 items-center">
+                    <div className="grid grid-cols-[220px_100px_1fr_1fr_150px_130px] gap-6 items-center">
                       {/* TX Hash */}
                       <Link href={'/transaction/' + tx.hash}>
                         <span className="font-mono text-base font-semibold text-gray-700 hover:text-[#0019ff] transition-colors">
@@ -581,58 +581,62 @@ export default function Home() {
                       <span className="text-base text-gray-600 font-semibold">{ageText} ago</span>
 
                       {/* From */}
-                      {isPrivate ? (
-                        <div className="flex items-center gap-2 px-3 py-1.5 bg-purple-50 rounded">
-                          <ShieldCheck className="text-purple-600" size={18} strokeWidth={2} />
-                          <span className="text-base font-semibold text-purple-700">Private</span>
-                        </div>
-                      ) : (
-                        <Link
-                          href={'/account/' + tx.from}
-                          className="inline-flex items-center gap-2 px-2 py-1 rounded"
-                          style={{
-                            backgroundColor: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '#fef3e7' : 'transparent',
-                            outline: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                            outlineOffset: '-2px',
-                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                            transitionDelay: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '0.25s' : '0s'
-                          }}
-                          onMouseEnter={() => setHoveredAddress(tx.from)}
-                          onMouseLeave={() => setHoveredAddress(null)}
-                        >
-                          <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
-                            <Avatar address={tx.from} avatarUrl={null} size={24} />
+                      <div>
+                        {isPrivate ? (
+                          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-50 rounded">
+                            <ShieldCheck className="text-purple-600" size={18} strokeWidth={2} />
+                            <span className="text-base font-semibold text-purple-700">Private</span>
                           </div>
-                          <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.from, 8, 6)}</span>
-                        </Link>
-                      )}
+                        ) : (
+                          <Link
+                            href={'/account/' + tx.from}
+                            className="inline-flex items-center gap-2 px-2 py-1 rounded"
+                            style={{
+                              backgroundColor: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '#fef3e7' : 'transparent',
+                              outline: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '2px dashed #f39c12' : 'none',
+                              outlineOffset: '-2px',
+                              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                              transitionDelay: hoveredAddress?.toLowerCase() === tx.from.toLowerCase() ? '0.25s' : '0s'
+                            }}
+                            onMouseEnter={() => setHoveredAddress(tx.from)}
+                            onMouseLeave={() => setHoveredAddress(null)}
+                          >
+                            <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
+                              <Avatar address={tx.from} avatarUrl={null} size={24} />
+                            </div>
+                            <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.from, 8, 6)}</span>
+                          </Link>
+                        )}
+                      </div>
 
                       {/* To */}
-                      {isPrivate ? (
-                        <div className="flex items-center gap-2 px-3 py-1.5 bg-purple-50 rounded">
-                          <ShieldCheck className="text-purple-600" size={18} strokeWidth={2} />
-                          <span className="text-base font-semibold text-purple-700">Private</span>
-                        </div>
-                      ) : (
-                        <Link
-                          href={'/account/' + tx.to}
-                          className="inline-flex items-center gap-2 px-2 py-1 rounded"
-                          style={{
-                            backgroundColor: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '#fef3e7' : 'transparent',
-                            outline: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                            outlineOffset: '-2px',
-                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                            transitionDelay: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '0.25s' : '0s'
-                          }}
-                          onMouseEnter={() => setHoveredAddress(tx.to)}
-                          onMouseLeave={() => setHoveredAddress(null)}
-                        >
-                          <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
-                            <Avatar address={tx.to} avatarUrl={null} size={24} />
+                      <div>
+                        {isPrivate ? (
+                          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-50 rounded">
+                            <ShieldCheck className="text-purple-600" size={18} strokeWidth={2} />
+                            <span className="text-base font-semibold text-purple-700">Private</span>
                           </div>
-                          <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.to, 8, 6)}</span>
-                        </Link>
-                      )}
+                        ) : (
+                          <Link
+                            href={'/account/' + tx.to}
+                            className="inline-flex items-center gap-2 px-2 py-1 rounded"
+                            style={{
+                              backgroundColor: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '#fef3e7' : 'transparent',
+                              outline: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '2px dashed #f39c12' : 'none',
+                              outlineOffset: '-2px',
+                              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                              transitionDelay: hoveredAddress?.toLowerCase() === tx.to.toLowerCase() ? '0.25s' : '0s'
+                            }}
+                            onMouseEnter={() => setHoveredAddress(tx.to)}
+                            onMouseLeave={() => setHoveredAddress(null)}
+                          >
+                            <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
+                              <Avatar address={tx.to} avatarUrl={null} size={24} />
+                            </div>
+                            <span className="font-mono text-base font-semibold text-gray-700">{formatHash(tx.to, 8, 6)}</span>
+                          </Link>
+                        )}
+                      </div>
 
                       {/* Amount */}
                       <div className="text-right">

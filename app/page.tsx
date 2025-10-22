@@ -390,7 +390,7 @@ export default function Home() {
                   {/* Badge - Fixed at top */}
                   <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
                     <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Featured DApp</span>
+                    <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Live DApp</span>
                   </div>
 
                   {/* Centered Content */}

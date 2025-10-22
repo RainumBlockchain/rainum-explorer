@@ -412,7 +412,7 @@ export default function Home() {
                             )}
                           </span>
                         </Link>
-                        {!hoveredBlockHash && (
+                        {hoveredBlockHash !== block.hash && (
                           <button
                             onClick={() => navigator.clipboard.writeText(block.hash)}
                             className="inline-flex items-center justify-center w-6 h-6 rounded bg-gray-100 hover:bg-[#f39c12] hover:text-white text-gray-600 transition-all"
@@ -497,7 +497,7 @@ export default function Home() {
                             </button>
                           )}
                         </Link>
-                        {!hoveredValidator && (
+                        {hoveredValidator?.toLowerCase() !== block.validator.toLowerCase() && (
                           <button
                             onClick={() => navigator.clipboard.writeText(block.validator)}
                             className="inline-flex items-center justify-center w-6 h-6 rounded bg-gray-100 hover:bg-[#f39c12] hover:text-white text-gray-600 transition-all"

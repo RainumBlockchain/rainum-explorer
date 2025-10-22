@@ -7,6 +7,7 @@ import { getTransactions, getValidators, type Transaction } from '@/lib/api/rain
 import { ArrowRightLeft, ArrowRight, Search, ShieldCheck, Info, X, Activity, Blocks } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar } from '@/components/shared/Avatar'
+import { RainIcon } from '@/components/shared/RainIcon'
 import { formatHash, formatTimeAgo } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
 import { SearchCommand } from '@/components/shared/SearchCommand'
@@ -309,7 +310,8 @@ export default function TransactionsListPage() {
                             <span className="text-base font-bold">Private</span>
                           </div>
                         ) : (
-                          <span className="text-base font-bold text-gray-900">
+                          <span className="text-base font-bold text-gray-900 flex items-center justify-end gap-1.5">
+                            <RainIcon size={16} />
                             {formatBalance(tx.amount).full} RAIN
                           </span>
                         )}

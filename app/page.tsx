@@ -8,6 +8,7 @@ import { Blocks, Activity, Users, TrendingUp, ArrowRight, ArrowRightLeft, Shield
 import Link from 'next/link'
 import { Avatar } from '@/components/shared/Avatar'
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
+import { RainIcon } from '@/components/shared/RainIcon'
 import { formatHash, formatNumber } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
 import { getAddressColor } from '@/lib/utils/color-hash'
@@ -481,7 +482,12 @@ export default function Home() {
           <StatCard
             icon={<Coins className="text-cyan-600" size={20} strokeWidth={2} />}
             title="Total Supply"
-            value={totalSupply ? formatNumber(totalSupply) + ' RAIN' : '...'}
+            value={totalSupply ? (
+              <>
+                <RainIcon size={20} />
+                {formatNumber(totalSupply)} RAIN
+              </>
+            ) : '...'}
           />
         </div>
 
@@ -642,13 +648,15 @@ export default function Home() {
                       </div>
 
                       {/* Gas Used */}
-                      <div className="text-right text-base text-gray-700 font-bold">
+                      <div className="text-right text-base text-gray-700 font-bold flex items-center justify-end gap-1">
+                        <RainIcon size={16} />
                         {gasUsed > 0 ? `${(gasUsed / 1000).toFixed(1)}K` : '0'}
                       </div>
 
                       {/* Reward */}
                       <div className="text-right">
-                        <span className="text-base font-black text-amber-600">
+                        <span className="text-base font-black text-amber-600 flex items-center justify-end gap-1">
+                          <RainIcon size={16} />
                           +{reward}
                         </span>
                       </div>
@@ -660,15 +668,14 @@ export default function Home() {
                         </span>
                       </div>
 
-                      {/* Validator (med avatar + halvt adresse + multi-highlight) */}
-                      <div className="col-span-2 flex justify-end items-center gap-1">
+                      {/* Validator (med avatar + badge + copy icon inside) */}
+                      <div className="col-span-2 flex justify-end items-center">
                         <Link
                           href={'/account/' + block.validator}
-                          className="inline-flex items-center gap-2 px-2 py-1 rounded"
+                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200"
                           style={{
-                            backgroundColor: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '#fef3e7' : 'transparent',
                             outline: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                            outlineOffset: '-2px',
+                            outlineOffset: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '2px' : '0',
                             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                             transitionDelay: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '0.25s' : '0s'
                           }}
@@ -682,38 +689,24 @@ export default function Home() {
                               size={24}
                             />
                           </div>
-                          <span className="font-mono text-base font-bold text-gray-700">
+                          <span className="font-mono text-base font-bold text-amber-700">
                             {formatHash(block.validator, 8, 6)}
                           </span>
-                          {hoveredValidator?.toLowerCase() === block.validator.toLowerCase() && (
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                navigator.clipboard.writeText(block.validator);
-                              }}
-                              className="inline-flex items-center justify-center w-5 h-5 rounded bg-[#f39c12] hover:bg-[#e67e22] text-white transition-colors"
-                              title="Copy full address"
-                            >
-                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                              </svg>
-                            </button>
-                          )}
-                        </Link>
-                        {hoveredValidator?.toLowerCase() !== block.validator.toLowerCase() && (
                           <button
-                            onClick={() => navigator.clipboard.writeText(block.validator)}
-                            className="inline-flex items-center justify-center w-6 h-6 rounded bg-gray-100 hover:bg-[#f39c12] hover:text-white text-gray-600 transition-all"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              navigator.clipboard.writeText(block.validator);
+                            }}
+                            className="inline-flex items-center justify-center w-5 h-5 rounded bg-amber-100 hover:bg-[#f39c12] hover:text-white text-amber-600 transition-colors"
                             title="Copy full address"
                           >
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                               <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                               <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                             </svg>
                           </button>
-                        )}
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -935,7 +928,8 @@ export default function Home() {
                             <span className="text-base font-bold">Private</span>
                           </div>
                         ) : (
-                          <span className="text-base font-bold text-gray-900">
+                          <span className="text-base font-bold text-gray-900 flex items-center justify-end gap-1.5">
+                            <RainIcon size={16} />
                             {formatBalance(tx.amount).full} RAIN
                           </span>
                         )}
@@ -1043,7 +1037,7 @@ export default function Home() {
 function StatCard({ icon, title, value }: {
   icon: React.ReactNode
   title: string
-  value: string
+  value: string | React.ReactNode
 }) {
   return (
     <div className="bg-white rounded border border-gray-200 p-5">
@@ -1053,7 +1047,7 @@ function StatCard({ icon, title, value }: {
         </div>
         <h3 className="text-sm font-medium text-gray-600">{title}</h3>
       </div>
-      <div className="text-2xl font-bold text-gray-900">{value}</div>
+      <div className="text-2xl font-bold text-gray-900 flex items-center gap-2">{value}</div>
     </div>
   )
 }

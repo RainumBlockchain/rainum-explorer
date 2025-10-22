@@ -7,6 +7,7 @@ import { getBlocks, getValidators, type Block } from '@/lib/api/rainum-api'
 import { Blocks, Search } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar } from '@/components/shared/Avatar'
+import { RainIcon } from '@/components/shared/RainIcon'
 import { formatHash } from '@/lib/utils/format'
 import { useMemo, useState, useEffect } from 'react'
 
@@ -200,13 +201,15 @@ export default function BlocksListPage() {
                     </div>
 
                     {/* Gas Used */}
-                    <div className="text-right text-base text-gray-700 font-bold">
+                    <div className="text-right text-base text-gray-700 font-bold flex items-center justify-end gap-1">
+                      <RainIcon size={16} />
                       {gasUsed > 0 ? `${(gasUsed / 1000).toFixed(1)}K` : '0'}
                     </div>
 
                     {/* Reward */}
                     <div className="text-right">
-                      <span className="text-base font-black text-amber-600">
+                      <span className="text-base font-black text-amber-600 flex items-center justify-end gap-1">
+                        <RainIcon size={16} />
                         +{reward}
                       </span>
                     </div>

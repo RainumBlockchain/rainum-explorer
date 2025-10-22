@@ -18,7 +18,7 @@ interface AvatarProps {
  */
 export function Avatar({ address, avatarUrl, size = 32, className = '' }: AvatarProps) {
   const borderColor = getAddressColor(address)
-  const combinedClassName = `rounded-full ${className}`
+  const combinedClassName = `rounded ${className}`
 
   // If validator has custom avatar, use it
   if (avatarUrl) {
@@ -30,8 +30,6 @@ export function Avatar({ address, avatarUrl, size = 32, className = '' }: Avatar
         style={{
           width: size,
           height: size,
-          border: '2px solid',
-          borderColor: borderColor,
           objectFit: 'cover'
         }}
         onError={(e) => {
@@ -50,9 +48,7 @@ export function Avatar({ address, avatarUrl, size = 32, className = '' }: Avatar
       className={combinedClassName}
       style={{
         width: size,
-        height: size,
-        border: '2px solid',
-        borderColor: borderColor
+        height: size
       }}
     />
   )

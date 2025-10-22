@@ -16,6 +16,8 @@ import { useState } from 'react'
 export default function Home() {
   const [hoveredValidator, setHoveredValidator] = useState<string | null>(null)
   const [hoveredAddress, setHoveredAddress] = useState<string | null>(null)
+  const [hoveredBlockHash, setHoveredBlockHash] = useState<string | null>(null)
+  const [activeTab, setActiveTab] = useState<'blocks' | 'transactions'>('blocks')
   const { data: status } = useQuery({
     queryKey: ['status'],
     queryFn: getStatus,
@@ -53,76 +55,86 @@ export default function Home() {
         {/* Hero Section with Features and Ad Space */}
         <div className="mb-8 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
           {/* Left Side - Explorer Features */}
-          <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-50 rounded border border-blue-100 p-8 relative overflow-hidden group hover:shadow-lg transition-all duration-300">
-            {/* Subtle animated gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-100/0 via-cyan-100/50 to-blue-100/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="bg-[#0019ff] rounded border-4 border-white p-8 relative overflow-hidden group hover:shadow-[0_20px_60px_rgba(0,25,255,0.4)] transition-all duration-300">
+            {/* White stripe with animated border */}
+            <div className="absolute top-0 left-0 w-full h-2 bg-white">
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-emerald-400" style={{animation: 'slide-right 3s ease-in-out infinite'}}></div>
+            </div>
 
             {/* Decorative corner accents */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-transparent rounded-bl-full"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-cyan-200/20 to-transparent rounded-tr-full"></div>
+            <div className="absolute top-2 left-2 w-12 h-12 bg-white/10 rounded"></div>
+            <div className="absolute bottom-2 right-2 w-10 h-10 bg-emerald-400/20 rounded"></div>
+
+            <style jsx>{`
+              @keyframes slide-right {
+                0% { transform: translateX(-100%); opacity: 0; }
+                50% { opacity: 1; }
+                100% { transform: translateX(100%); opacity: 0; }
+              }
+            `}</style>
 
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-200 px-3 py-1.5 rounded-full mb-4">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-semibold text-gray-700 uppercase tracking-wider">Live Explorer</span>
+              <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded mb-4 shadow-sm">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span className="text-xs font-semibold text-[#0019ff] uppercase tracking-wider">Live Explorer</span>
               </div>
 
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-white mb-2">
                 Explore Rainum Blockchain
               </h2>
-              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+              <p className="text-blue-100 mb-6 text-sm leading-relaxed">
                 Fast, secure, and privacy-focused blockchain explorer with real-time data and advanced search capabilities.
               </p>
 
               {/* Feature Highlights */}
               <div className="space-y-3.5">
-                <div className="flex items-start gap-3 group/item">
-                  <div className="w-10 h-10 bg-white border border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:border-blue-400 group-hover/item:shadow-md transition-all duration-200">
-                    <Search className="text-blue-600" size={18} strokeWidth={2} />
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Search className="text-[#0019ff]" size={18} strokeWidth={2} />
                   </div>
                   <div className="pt-0.5">
-                    <h3 className="font-semibold text-gray-900 mb-0.5 text-sm">Advanced Search</h3>
-                    <p className="text-xs text-gray-600 leading-relaxed">Search blocks, transactions, accounts, and validators instantly</p>
+                    <h3 className="font-semibold text-white mb-0.5 text-sm">Advanced Search</h3>
+                    <p className="text-xs text-blue-100 leading-relaxed">Search blocks, transactions, accounts, and validators instantly</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 group/item">
-                  <div className="w-10 h-10 bg-white border border-cyan-200 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:border-cyan-400 group-hover/item:shadow-md transition-all duration-200">
-                    <Lock className="text-cyan-600" size={18} strokeWidth={2} />
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Lock className="text-emerald-600" size={18} strokeWidth={2} />
                   </div>
                   <div className="pt-0.5">
-                    <h3 className="font-semibold text-gray-900 mb-0.5 text-sm">ZKP Privacy Protection</h3>
-                    <p className="text-xs text-gray-600 leading-relaxed">Zero-knowledge proofs for private transactions</p>
+                    <h3 className="font-semibold text-white mb-0.5 text-sm">ZKP Privacy Protection</h3>
+                    <p className="text-xs text-blue-100 leading-relaxed">Zero-knowledge proofs for private transactions</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 group/item">
-                  <div className="w-10 h-10 bg-white border border-blue-200 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:border-blue-400 group-hover/item:shadow-md transition-all duration-200">
-                    <Zap className="text-blue-600" size={18} strokeWidth={2} />
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0 shadow-md">
+                    <Zap className="text-amber-600" size={18} strokeWidth={2} />
                   </div>
                   <div className="pt-0.5">
-                    <h3 className="font-semibold text-gray-900 mb-0.5 text-sm">Real-Time Updates</h3>
-                    <p className="text-xs text-gray-600 leading-relaxed">Live blockchain data refreshed every few seconds</p>
+                    <h3 className="font-semibold text-white mb-0.5 text-sm">Real-Time Updates</h3>
+                    <p className="text-xs text-blue-100 leading-relaxed">Live blockchain data refreshed every few seconds</p>
                   </div>
                 </div>
               </div>
 
               {/* Premium Stats Bar */}
-              <div className="mt-6 pt-6 border-t border-gray-200 grid grid-cols-4 gap-3">
-                <div className="text-center bg-white/60 backdrop-blur-sm rounded-lg py-3 px-2 border border-gray-100 hover:shadow-md transition-all duration-200">
-                  <div className="text-lg font-bold text-blue-600">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
+              <div className="mt-6 pt-6 border-t border-white/20 grid grid-cols-4 gap-3">
+                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+                  <div className="text-lg font-bold text-[#0019ff]">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
                   <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Last Block</div>
                 </div>
-                <div className="text-center bg-white/60 backdrop-blur-sm rounded-lg py-3 px-2 border border-gray-100 hover:shadow-md transition-all duration-200">
-                  <div className="text-lg font-bold text-cyan-600">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
+                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+                  <div className="text-lg font-bold text-emerald-600">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
                   <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Current TPS</div>
                 </div>
-                <div className="text-center bg-white/60 backdrop-blur-sm rounded-lg py-3 px-2 border border-gray-100 hover:shadow-md transition-all duration-200">
-                  <div className="text-lg font-bold text-purple-600">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
+                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+                  <div className="text-lg font-bold text-violet-600">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
                   <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Online Now</div>
                 </div>
-                <div className="text-center bg-white/60 backdrop-blur-sm rounded-lg py-3 px-2 border border-gray-100 hover:shadow-md transition-all duration-200">
-                  <div className="text-lg font-bold text-green-600">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
+                <div className="text-center bg-white/90 backdrop-blur-sm rounded py-3 px-2 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+                  <div className="text-lg font-bold text-amber-600">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
                   <div className="text-[10px] text-gray-600 uppercase tracking-wide font-medium">Total Supply</div>
                 </div>
               </div>
@@ -130,90 +142,90 @@ export default function Home() {
           </div>
 
           {/* Right Side - Rainum Wallet Extension Promo */}
-          <div className="bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50 rounded border border-purple-200 p-8 flex flex-col items-center justify-center text-center relative overflow-hidden group hover:shadow-2xl transition-all duration-500">
-            {/* Animated gradient orbs */}
-            <div className="absolute inset-0 opacity-40">
-              <div className="absolute -top-16 -left-16 w-48 h-48 bg-gradient-to-br from-purple-300 to-purple-400 rounded-full filter blur-3xl animate-pulse"></div>
-              <div className="absolute -bottom-16 -right-16 w-48 h-48 bg-gradient-to-br from-blue-300 to-blue-400 rounded-full filter blur-3xl animate-pulse" style={{animationDelay: '1.5s'}}></div>
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-cyan-200 to-cyan-300 rounded-full filter blur-2xl animate-pulse" style={{animationDelay: '0.7s'}}></div>
+          <div className="bg-[#0019ff] rounded border-4 border-white p-8 flex flex-col relative overflow-hidden group hover:shadow-[0_20px_60px_rgba(0,25,255,0.4)] transition-all duration-300">
+            {/* White stripe with animated border */}
+            <div className="absolute top-0 left-0 w-full h-2 bg-white">
+              <div className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400" style={{animation: 'slide-right 3s ease-in-out infinite'}}></div>
             </div>
 
-            {/* Animated shimmer effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            {/* Decorative corner accents */}
+            <div className="absolute top-2 right-2 w-12 h-12 bg-white/10 rounded"></div>
+            <div className="absolute bottom-2 left-2 w-10 h-10 bg-cyan-400/20 rounded"></div>
 
-            {/* Top decorative line */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 animate-pulse"></div>
+            <style jsx>{`
+              @keyframes slide-right {
+                0% { transform: translateX(-100%); opacity: 0; }
+                50% { opacity: 1; }
+                100% { transform: translateX(100%); opacity: 0; }
+              }
+            `}</style>
 
             <div className="relative z-10">
-              {/* Featured Badge */}
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 px-4 py-1.5 rounded-full mb-4 shadow-lg">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                <span className="text-xs font-bold text-white uppercase tracking-wider">Featured Extension</span>
-              </div>
-
-              {/* Wallet Icon with Glow */}
-              <div className="relative inline-block mb-4">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-400 to-blue-400 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
-                <div className="relative w-16 h-16 bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-9 h-9 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
+              {/* Badges */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded shadow-lg">
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Featured</span>
                 </div>
+                <a
+                  href="https://testnet.rainum.io"
+                  className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 px-4 py-1.5 rounded shadow-lg transform hover:scale-105 hover:-translate-y-0.5 transition-all duration-200"
+                >
+                  <Coins className="text-white" size={14} strokeWidth={2.5} />
+                  <span className="text-xs font-black text-white uppercase tracking-wider">Try Testnet</span>
+                </a>
               </div>
 
-              <h3 className="text-3xl font-black bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2 tracking-tight">
-                Rainum Wallet
-              </h3>
-              <div className="text-sm font-semibold text-gray-700 mb-3">Browser Extension</div>
+              {/* Wallet Icon (white on blue) */}
+              <div className="w-16 h-16 bg-white rounded flex items-center justify-center mb-4 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-9 h-9 text-[#0019ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+              </div>
 
-              <p className="text-gray-600 mb-6 max-w-sm text-sm leading-relaxed">
-                Your gateway to the <span className="text-purple-600 font-bold">world's first dual-VM blockchain</span>. EVM + Move in one wallet.
+              <h3 className="text-2xl font-bold text-white mb-2">
+                Rainum Wallet Extension
+              </h3>
+
+              <p className="text-blue-100 text-sm leading-relaxed mb-6">
+                World's first dual-VM blockchain wallet. EVM + Move support in one browser extension.
               </p>
 
-              {/* Feature Pills */}
-              <div className="space-y-2 mb-6">
-                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-purple-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-purple-400 hover:shadow-md transition-all duration-200">
-                  <ArrowRightLeft className="text-purple-600" size={15} strokeWidth={2.5} />
-                  <span className="font-semibold">EVM + Move Dual-VM</span>
+              {/* Feature List (white on blue) */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0">
+                    <ArrowRightLeft className="text-[#0019ff]" size={18} strokeWidth={2} />
+                  </div>
+                  <span className="text-sm font-semibold text-white">EVM + Move Dual-VM</span>
                 </div>
-                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-blue-400 hover:shadow-md transition-all duration-200">
-                  <Lock className="text-blue-600" size={15} strokeWidth={2.5} />
-                  <span className="font-semibold">Built-in ZKP Privacy</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0">
+                    <ShieldCheck className="text-emerald-600" size={18} strokeWidth={2} />
+                  </div>
+                  <span className="text-sm font-semibold text-white">Built-in ZKP Privacy</span>
                 </div>
-                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm border border-cyan-200 rounded-full px-4 py-2 text-sm text-gray-700 hover:border-cyan-400 hover:shadow-md transition-all duration-200">
-                  <Zap className="text-cyan-600" size={15} strokeWidth={2.5} />
-                  <span className="font-semibold">1-Click Cross-VM Calls</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0">
+                    <Zap className="text-amber-600" size={18} strokeWidth={2} />
+                  </div>
+                  <span className="text-sm font-semibold text-white">1-Click Cross-VM Calls</span>
                 </div>
               </div>
 
-              {/* Download Buttons */}
-              <div className="flex gap-3 justify-center mb-4">
-                <a
-                  href="https://chrome.google.com/webstore"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-5 py-2.5 rounded-lg font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200 text-sm"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                  </svg>
-                  Chrome
-                </a>
-                <a
-                  href="https://addons.mozilla.org/firefox/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 bg-white hover:bg-gray-50 text-gray-800 border-2 border-purple-300 hover:border-purple-400 px-5 py-2.5 rounded-lg font-bold shadow-md hover:shadow-lg transform hover:-translate-y-1 transition-all duration-200 text-sm"
-                >
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                  </svg>
-                  Firefox
-                </a>
-              </div>
+              {/* Download Button */}
+              <a
+                href="https://chrome.google.com/webstore"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-cyan-300 text-[#0019ff] hover:text-[#0014cc] px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
+              >
+                <ExternalLink size={18} strokeWidth={2} />
+                <span className="font-black">Download Extension</span>
+              </a>
 
-              <div className="text-xs text-gray-500 font-medium">
-                <span className="text-purple-600 font-bold">FREE</span> · Available Now
+              <div className="mt-4 text-xs text-center text-blue-100 font-semibold">
+                <span className="text-white font-black">FREE</span> · Chrome & Firefox
               </div>
             </div>
           </div>
@@ -248,40 +260,57 @@ export default function Home() {
           />
         </div>
 
-        {/* Recent Data Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-6">
-          {/* Recent Blocks */}
-          <div className="bg-white rounded border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center">
-                  <Blocks className="text-gray-700" size={16} strokeWidth={2} />
-                </div>
-                <h2 className="text-base font-semibold text-gray-900">Latest Blocks</h2>
-              </div>
-              <Link
-                href="/blocks"
-                className="text-[#0019ff] hover:text-[#0014cc] text-sm font-medium flex items-center gap-1 transition-colors"
+        {/* Recent Data - Tabbed View */}
+        <div className="bg-white rounded border border-gray-200 overflow-hidden">
+          {/* Tab Headers */}
+          <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => setActiveTab('blocks')}
+                className={`flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 ${
+                  activeTab === 'blocks'
+                    ? 'bg-[#0019ff] text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
               >
-                View All <ArrowRight size={14} strokeWidth={2} />
-              </Link>
+                <Blocks size={16} strokeWidth={2} />
+                <span className="text-sm font-semibold">Latest Blocks</span>
+              </button>
+              <button
+                onClick={() => setActiveTab('transactions')}
+                className={`flex items-center gap-2 px-4 py-2 rounded transition-all duration-200 ${
+                  activeTab === 'transactions'
+                    ? 'bg-[#0019ff] text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+              >
+                <Activity size={16} strokeWidth={2} />
+                <span className="text-sm font-semibold">Latest Transactions</span>
+              </button>
             </div>
+            <Link
+              href={activeTab === 'blocks' ? '/blocks' : '/transactions'}
+              className="text-[#0019ff] hover:text-[#0014cc] text-sm font-medium flex items-center gap-1 transition-colors"
+            >
+              View All <ArrowRight size={14} strokeWidth={2} />
+            </Link>
+          </div>
+
+          {/* Blocks Tab Content */}
+          {activeTab === 'blocks' && (
+          <div>
 
             {/* Column Headers */}
-            <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Block</div>
-                </div>
-                <div className="flex-1 text-center">
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Block Hash</div>
-                </div>
-                <div className="text-center" style={{ width: '120px' }}>
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Transactions</div>
-                </div>
-                <div className="text-right" style={{ width: '140px' }}>
-                  <div className="text-xs font-semibold text-gray-600 uppercase tracking-wide">Validator</div>
-                </div>
+            <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
+              <div className="grid grid-cols-10 gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+                <div>Block</div>
+                <div className="col-span-2">Block Hash</div>
+                <div>Age</div>
+                <div className="text-center">Txs</div>
+                <div className="text-right">Gas Used</div>
+                <div className="text-right">Reward</div>
+                <div className="text-center">Shard</div>
+                <div className="text-right col-span-2">Validator</div>
               </div>
             </div>
 
@@ -308,76 +337,155 @@ export default function Home() {
                 blocks.slice(0, 10).map((block: Block) => {
                   const validator = validators?.find((v: ValidatorInfo) => v.address.toLowerCase() === block.validator.toLowerCase())
                   const isSameValidator = hoveredValidator?.toLowerCase() === block.validator.toLowerCase()
-                  const validatorColor = getAddressColor(block.validator)
+                  const age = Math.floor((Date.now() / 1000 - block.timestamp) / 60)
+                  const ageText = age < 1 ? '<1m' : age < 60 ? `${age}m` : `${Math.floor(age / 60)}h`
+                  const gasUsed = (block.transaction_count || 0) * 21000
+                  const reward = block.validator_tier === 3 ? 30 : block.validator_tier === 2 ? 20 : 10
+                  const shardId = block.id % 16
 
                   return (
                   <div
                     key={block.id}
-                    className="px-6 py-3 transition-all border-l-4 border-transparent hover:border-transparent border-t border-gray-200 group"
-                    style={{
-                      backgroundColor: isSameValidator ? `${validatorColor}08` : 'transparent'
-                    }}
+                    className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                   >
-                    <div className="flex items-center gap-4">
-                      {/* Block Info - Left */}
-                      <div className="flex-1 min-w-0">
+                    <div className="grid grid-cols-10 gap-4 items-center">
+                      {/* Block Number */}
+                      <Link href={'/block/' + block.hash}>
+                        <span className="font-black text-[#0019ff] hover:text-[#0014cc] transition-colors text-lg">
+                          #{block.id}
+                        </span>
+                      </Link>
+
+                      {/* Block Hash (halvt) */}
+                      <div
+                        className="col-span-2 inline-flex items-center gap-1"
+                        onMouseEnter={() => setHoveredBlockHash(block.hash)}
+                        onMouseLeave={() => setHoveredBlockHash(null)}
+                      >
                         <Link href={'/block/' + block.hash}>
-                          <span className="font-bold text-[#0019ff] hover:text-[#0014cc] text-sm transition-colors">
-                            Block #{block.id}
+                          <span
+                            className="inline-flex items-center gap-2 font-mono text-base font-semibold px-3 py-1.5 rounded transition-all"
+                            style={{
+                              backgroundColor: hoveredBlockHash === block.hash ? '#fef3e7' : 'transparent',
+                              outline: hoveredBlockHash === block.hash ? '2px dashed #f39c12' : 'none',
+                              outlineOffset: '-2px',
+                              color: hoveredBlockHash === block.hash ? '#0019ff' : '#374151'
+                            }}
+                          >
+                            {formatHash(block.hash, 10, 8)}
+                            {hoveredBlockHash === block.hash && (
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  navigator.clipboard.writeText(block.hash);
+                                }}
+                                className="inline-flex items-center justify-center w-5 h-5 rounded bg-[#f39c12] hover:bg-[#e67e22] text-white transition-colors"
+                                title="Copy full hash"
+                              >
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                              </button>
+                            )}
                           </span>
                         </Link>
+                        {!hoveredBlockHash && (
+                          <button
+                            onClick={() => navigator.clipboard.writeText(block.hash)}
+                            className="inline-flex items-center justify-center w-6 h-6 rounded bg-gray-100 hover:bg-[#f39c12] hover:text-white text-gray-600 transition-all"
+                            title="Copy full hash"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                          </button>
+                        )}
                       </div>
 
-                      {/* Block Hash - Center */}
-                      <div className="flex-1 text-center min-w-0">
-                        <Link href={'/block/' + block.hash}>
-                          <span className="font-mono text-xs font-medium text-gray-700 hover:text-[#0019ff] transition-colors">
-                            {formatHash(block.hash, 8, 6)}
-                          </span>
-                        </Link>
-                      </div>
+                      {/* Age */}
+                      <span className="text-base text-gray-600 font-semibold">{ageText} ago</span>
 
-                      {/* Transactions - Center */}
-                      <div className="text-center" style={{ width: '120px' }}>
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-green-50 text-green-700 rounded-full text-xs font-semibold">
-                          <ArrowRightLeft size={10} strokeWidth={2} />
+                      {/* Transactions */}
+                      <div className="text-center">
+                        <span className="inline-flex items-center px-4 py-2 bg-emerald-50 text-emerald-700 rounded text-base font-black">
                           {block.transaction_count || 0}
                         </span>
                       </div>
 
-                      {/* Validator - Right */}
-                      <div className="flex justify-end min-w-0" style={{ width: '140px' }}>
-                        <div
-                          className="flex items-center gap-2 px-2 py-1 transition-all min-w-0 max-w-full"
+                      {/* Gas Used */}
+                      <div className="text-right text-base text-gray-700 font-bold">
+                        {gasUsed > 0 ? `${(gasUsed / 1000).toFixed(1)}K` : '0'}
+                      </div>
+
+                      {/* Reward */}
+                      <div className="text-right">
+                        <span className="text-base font-black text-amber-600">
+                          +{reward}
+                        </span>
+                      </div>
+
+                      {/* Shard */}
+                      <div className="text-center">
+                        <span className="inline-flex items-center px-4 py-2 bg-blue-50 text-blue-700 rounded text-base font-black">
+                          S{shardId}
+                        </span>
+                      </div>
+
+                      {/* Validator (med avatar + halvt adresse + multi-highlight) */}
+                      <div className="col-span-2 flex justify-end items-center gap-1">
+                        <Link
+                          href={'/account/' + block.validator}
+                          className="inline-flex items-center gap-2 px-2 py-1 rounded transition-all"
                           style={{
-                            borderRadius: '4px',
-                            backgroundColor: isSameValidator ? '#fef3e7' : 'transparent',
-                            outline: isSameValidator ? `2px dashed #f39c12` : 'none',
-                            outlineOffset: '-2px',
-                            boxShadow: 'none'
+                            backgroundColor: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '#fef3e7' : 'transparent',
+                            outline: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '2px dashed #f39c12' : 'none',
+                            outlineOffset: '-2px'
                           }}
                           onMouseEnter={() => setHoveredValidator(block.validator)}
                           onMouseLeave={() => setHoveredValidator(null)}
                         >
-                        <div className="flex-shrink-0">
-                          <Link href={'/account/' + block.validator} onClick={(e) => e.stopPropagation()}>
+                          <div className="w-6 h-6 rounded overflow-hidden flex-shrink-0">
                             <Avatar
                               address={block.validator}
                               avatarUrl={validator?.avatar_url}
-                              size={20}
+                              size={24}
                             />
-                          </Link>
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <Link
-                            href={'/account/' + block.validator}
-                            className="text-xs font-semibold text-gray-900 hover:text-[#0019ff] transition-colors truncate block"
-                            onClick={(e) => e.stopPropagation()}
+                          </div>
+                          <span className="font-mono text-base font-bold text-gray-700">
+                            {formatHash(block.validator, 8, 6)}
+                          </span>
+                          {hoveredValidator?.toLowerCase() === block.validator.toLowerCase() && (
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                navigator.clipboard.writeText(block.validator);
+                              }}
+                              className="inline-flex items-center justify-center w-5 h-5 rounded bg-[#f39c12] hover:bg-[#e67e22] text-white transition-colors"
+                              title="Copy full address"
+                            >
+                              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                              </svg>
+                            </button>
+                          )}
+                        </Link>
+                        {!hoveredValidator && (
+                          <button
+                            onClick={() => navigator.clipboard.writeText(block.validator)}
+                            className="inline-flex items-center justify-center w-6 h-6 rounded bg-gray-100 hover:bg-[#f39c12] hover:text-white text-gray-600 transition-all"
+                            title="Copy full address"
                           >
-                            {validator?.nickname || formatHash(block.validator, 6, 4)}
-                          </Link>
-                        </div>
-                        </div>
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                            </svg>
+                          </button>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -391,23 +499,11 @@ export default function Home() {
               )}
             </div>
           </div>
+          )}
 
-          {/* Recent Transactions */}
-          <div className="bg-white rounded border border-gray-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-gray-100 rounded flex items-center justify-center">
-                  <Activity className="text-gray-700" size={16} strokeWidth={2} />
-                </div>
-                <h2 className="text-base font-semibold text-gray-900">Latest Transactions</h2>
-              </div>
-              <Link
-                href="/transactions"
-                className="text-[#0019ff] hover:text-[#0014cc] text-sm font-medium flex items-center gap-1 transition-colors"
-              >
-                View All <ArrowRight size={14} strokeWidth={2} />
-              </Link>
-            </div>
+          {/* Transactions Tab Content */}
+          {activeTab === 'transactions' && (
+          <div>
 
             {/* Column Headers */}
             <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
@@ -564,6 +660,7 @@ export default function Home() {
               )}
             </div>
           </div>
+          )}
         </div>
       </main>
 

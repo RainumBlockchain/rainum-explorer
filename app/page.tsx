@@ -4,7 +4,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useQuery } from '@tanstack/react-query'
 import { getStatus, getBlocks, getTransactions, getValidators, getTotalSupply, type Block, type Transaction, type ValidatorInfo } from '@/lib/api/rainum-api'
-import { Blocks, Activity, Users, TrendingUp, ArrowRight, ArrowRightLeft, ShieldCheck, Coins, Search, Zap, Lock, ExternalLink, Info, X } from 'lucide-react'
+import { Blocks, Activity, Users, TrendingUp, ArrowRight, ArrowRightLeft, ShieldCheck, Coins, Search, Zap, Lock, ExternalLink, Info, X, ChevronLeft, ChevronRight, Rocket, Code } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar } from '@/components/shared/Avatar'
 import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
@@ -20,6 +20,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<'blocks' | 'transactions'>('transactions')
   const [currentTime, setCurrentTime] = useState(Date.now())
   const [isVMInfoOpen, setIsVMInfoOpen] = useState(false)
+  const [activeSlide, setActiveSlide] = useState(0)
 
   // Update time every second for live age countdown
   useEffect(() => {
@@ -36,6 +37,14 @@ export default function Home() {
     }
     window.addEventListener('keydown', handleEsc)
     return () => window.removeEventListener('keydown', handleEsc)
+  }, [])
+
+  // Auto-rotate slides every 10 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % 2)
+    }, 10000)
+    return () => clearInterval(interval)
   }, [])
 
   const getAge = (timestamp: number) => {
@@ -84,7 +93,7 @@ export default function Home() {
       <main className="flex-1 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         {/* Hero Section with Features and Ad Space */}
         <div className="mb-8 grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-6">
-          {/* Left Side - Explorer Features */}
+          {/* Left Side - Carousel */}
           <div className="bg-[#0019ff] rounded border-4 border-white p-10 relative overflow-hidden group hover:shadow-[0_20px_60px_rgba(0,25,255,0.4)] transition-all duration-300">
             {/* White stripe with animated border */}
             <div className="absolute top-0 left-0 w-full h-2 bg-white">
@@ -95,6 +104,33 @@ export default function Home() {
             <div className="absolute top-2 left-2 w-16 h-16 bg-white/10 rounded"></div>
             <div className="absolute bottom-2 right-2 w-12 h-12 bg-emerald-400/20 rounded"></div>
 
+            {/* Navigation Arrows */}
+            <button
+              onClick={() => setActiveSlide((prev) => (prev - 1 + 2) % 2)}
+              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110"
+            >
+              <ChevronLeft className="text-[#0019ff]" size={24} strokeWidth={3} />
+            </button>
+            <button
+              onClick={() => setActiveSlide((prev) => (prev + 1) % 2)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-110"
+            >
+              <ChevronRight className="text-[#0019ff]" size={24} strokeWidth={3} />
+            </button>
+
+            {/* Dots Navigation */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+              {[0, 1].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveSlide(index)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${
+                    activeSlide === index ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/75'
+                  }`}
+                />
+              ))}
+            </div>
+
             <style jsx>{`
               @keyframes slide-right {
                 0% { transform: translateX(-100%); opacity: 0; }
@@ -104,21 +140,24 @@ export default function Home() {
             `}</style>
 
             <div className="relative z-10">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
-                <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Live Network</span>
-              </div>
+              {/* Slide 0: Explorer Features */}
+              {activeSlide === 0 && (
+                <>
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
+                    <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Live Network</span>
+                  </div>
 
-              {/* Main Title */}
-              <h1 className="text-4xl font-black text-white mb-3 leading-tight">
-                Explore Rainum Blockchain
-              </h1>
+                  {/* Main Title */}
+                  <h1 className="text-4xl font-black text-white mb-3 leading-tight">
+                    Explore Rainum Blockchain
+                  </h1>
 
-              {/* Subtitle with Dual-VM highlight */}
-              <p className="text-blue-100 mb-8 text-base leading-relaxed">
-                The world's first <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded">EVM + Move</span> dual-VM blockchain explorer with real-time data and zero-knowledge privacy.
-              </p>
+                  {/* Subtitle with Dual-VM highlight */}
+                  <p className="text-blue-100 mb-8 text-base leading-relaxed">
+                    The world's first <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded">EVM + Move</span> dual-VM blockchain explorer with real-time data and zero-knowledge privacy.
+                  </p>
 
               {/* Feature Grid - 2x2 */}
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -186,6 +225,98 @@ export default function Home() {
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Total Supply</div>
                 </div>
               </div>
+                </>
+              )}
+
+              {/* Slide 1: DApps Promo */}
+              {activeSlide === 1 && (
+                <>
+                  {/* Badge */}
+                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
+                    <div className="w-2.5 h-2.5 bg-violet-500 rounded-full animate-pulse"></div>
+                    <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">DApps Ecosystem</span>
+                  </div>
+
+                  {/* Main Title */}
+                  <h1 className="text-4xl font-black text-white mb-3 leading-tight">
+                    Build on Rainum
+                  </h1>
+
+                  {/* Subtitle */}
+                  <p className="text-blue-100 mb-8 text-base leading-relaxed">
+                    Deploy decentralized applications with <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded">dual-VM</span> support. Choose EVM or Move, or use both in one app.
+                  </p>
+
+                  {/* DApp Features Grid - 2x2 */}
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    {/* Deploy Anywhere */}
+                    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Rocket className="text-white" size={20} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="font-black text-gray-900 text-sm">Deploy Anywhere</h3>
+                      </div>
+                      <p className="text-xs text-gray-600 leading-relaxed">Use Solidity, Move, or both in the same application</p>
+                    </div>
+
+                    {/* Developer Tools */}
+                    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Code className="text-white" size={20} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="font-black text-gray-900 text-sm">Full Dev Tools</h3>
+                      </div>
+                      <p className="text-xs text-gray-600 leading-relaxed">Complete SDK, CLI, and framework support for both VMs</p>
+                    </div>
+
+                    {/* Low Gas Fees */}
+                    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Coins className="text-white" size={20} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="font-black text-gray-900 text-sm">Low Gas Fees</h3>
+                      </div>
+                      <p className="text-xs text-gray-600 leading-relaxed">Optimized execution costs for both EVM and Move</p>
+                    </div>
+
+                    {/* Cross-VM Integration */}
+                    <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <ArrowRightLeft className="text-white" size={20} strokeWidth={2.5} />
+                        </div>
+                        <h3 className="font-black text-gray-900 text-sm">Cross-VM Native</h3>
+                      </div>
+                      <p className="text-xs text-gray-600 leading-relaxed">Call between VMs seamlessly with native support</p>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <div className="flex gap-3">
+                    <a
+                      href="https://docs.rainum.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-[#0019ff] px-6 py-4 rounded-lg font-black shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 text-sm"
+                    >
+                      <Code size={18} strokeWidth={2.5} />
+                      <span>View Docs</span>
+                    </a>
+                    <a
+                      href="https://github.com/rainum-labs"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 text-white px-6 py-4 rounded-lg font-black shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5 text-sm border-2 border-white"
+                    >
+                      <Rocket size={18} strokeWidth={2.5} />
+                      <span>Start Building</span>
+                    </a>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 

@@ -530,7 +530,8 @@ export default function Home() {
 
             {/* Column Headers */}
             <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
-              <div className="grid grid-cols-[220px_100px_80px_100px_1fr_1fr_150px_100px_130px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+              <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_150px_130px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+                <div>Block</div>
                 <div>TX Hash</div>
                 <div>Age</div>
                 <div>VM</div>
@@ -538,7 +539,6 @@ export default function Home() {
                 <div>From</div>
                 <div>To</div>
                 <div className="text-right">Amount</div>
-                <div className="text-center">Block</div>
                 <div className="text-center">Status</div>
               </div>
             </div>
@@ -579,7 +579,20 @@ export default function Home() {
                     key={`${tx.hash}-${index}`}
                     className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                   >
-                    <div className="grid grid-cols-[220px_100px_80px_100px_1fr_1fr_150px_100px_130px] gap-4 items-center">
+                    <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_150px_130px] gap-4 items-center">
+                      {/* Block */}
+                      <div>
+                        {blockNumber !== '...' ? (
+                          <Link href={'/block/' + blockNumber}>
+                            <span className="text-base font-black text-[#0019ff] hover:text-[#0014cc] transition-colors">
+                              {blockNumber}
+                            </span>
+                          </Link>
+                        ) : (
+                          <span className="text-base font-semibold text-gray-400">...</span>
+                        )}
+                      </div>
+
                       {/* TX Hash */}
                       <Link href={'/transaction/' + tx.hash}>
                         <span className="font-mono text-base font-semibold text-gray-700 hover:text-[#0019ff] transition-colors">
@@ -711,19 +724,6 @@ export default function Home() {
                           <span className="text-base font-bold text-gray-900">
                             {formatBalance(tx.amount).full} RAIN
                           </span>
-                        )}
-                      </div>
-
-                      {/* Block */}
-                      <div className="text-center">
-                        {blockNumber !== '...' ? (
-                          <Link href={'/block/' + blockNumber}>
-                            <span className="text-sm font-bold text-[#0019ff] hover:text-[#0014cc] transition-colors">
-                              #{blockNumber}
-                            </span>
-                          </Link>
-                        ) : (
-                          <span className="text-sm font-semibold text-gray-400">...</span>
                         )}
                       </div>
 

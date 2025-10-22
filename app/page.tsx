@@ -11,13 +11,33 @@ import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
 import { formatHash, formatNumber } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
 import { getAddressColor } from '@/lib/utils/color-hash'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Home() {
   const [hoveredValidator, setHoveredValidator] = useState<string | null>(null)
   const [hoveredAddress, setHoveredAddress] = useState<string | null>(null)
   const [hoveredBlockHash, setHoveredBlockHash] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'blocks' | 'transactions'>('blocks')
+  const [currentTime, setCurrentTime] = useState(Date.now())
+
+  // Update time every second for live age countdown
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const getAge = (timestamp: number) => {
+    const seconds = Math.floor((currentTime / 1000 - timestamp))
+    if (seconds < 60) return `${seconds}s`
+    const minutes = Math.floor(seconds / 60)
+    if (minutes < 60) return `${minutes}m`
+    const hours = Math.floor(minutes / 60)
+    if (hours < 24) return `${hours}h`
+    const days = Math.floor(hours / 24)
+    return `${days}d`
+  }
   const { data: status } = useQuery({
     queryKey: ['status'],
     queryFn: getStatus,
@@ -337,8 +357,7 @@ export default function Home() {
                 blocks.slice(0, 10).map((block: Block) => {
                   const validator = validators?.find((v: ValidatorInfo) => v.address.toLowerCase() === block.validator.toLowerCase())
                   const isSameValidator = hoveredValidator?.toLowerCase() === block.validator.toLowerCase()
-                  const age = Math.floor((Date.now() / 1000 - block.timestamp) / 60)
-                  const ageText = age < 1 ? '<1m' : age < 60 ? `${age}m` : `${Math.floor(age / 60)}h`
+                  const ageText = getAge(block.timestamp)
                   const gasUsed = (block.transaction_count || 0) * 21000
                   const reward = block.validator_tier === 3 ? 30 : block.validator_tier === 2 ? 20 : 10
                   const shardId = block.id % 16

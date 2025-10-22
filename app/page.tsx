@@ -364,12 +364,14 @@ export default function Home() {
                       >
                         <Link href={'/block/' + block.hash}>
                           <span
-                            className="inline-flex items-center gap-2 font-mono text-base font-semibold px-3 py-1.5 rounded transition-all"
+                            className="inline-flex items-center gap-2 font-mono text-base font-semibold px-3 py-1.5 rounded"
                             style={{
                               backgroundColor: hoveredBlockHash === block.hash ? '#fef3e7' : 'transparent',
                               outline: hoveredBlockHash === block.hash ? '2px dashed #f39c12' : 'none',
                               outlineOffset: '-2px',
-                              color: hoveredBlockHash === block.hash ? '#0019ff' : '#374151'
+                              color: hoveredBlockHash === block.hash ? '#0019ff' : '#374151',
+                              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                              transitionDelay: hoveredBlockHash === block.hash ? '0.25s' : '0s'
                             }}
                           >
                             {formatHash(block.hash, 10, 8)}
@@ -438,11 +440,13 @@ export default function Home() {
                       <div className="col-span-2 flex justify-end items-center gap-1">
                         <Link
                           href={'/account/' + block.validator}
-                          className="inline-flex items-center gap-2 px-2 py-1 rounded transition-all"
+                          className="inline-flex items-center gap-2 px-2 py-1 rounded"
                           style={{
                             backgroundColor: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '#fef3e7' : 'transparent',
                             outline: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                            outlineOffset: '-2px'
+                            outlineOffset: '-2px',
+                            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transitionDelay: hoveredValidator?.toLowerCase() === block.validator.toLowerCase() ? '0.25s' : '0s'
                           }}
                           onMouseEnter={() => setHoveredValidator(block.validator)}
                           onMouseLeave={() => setHoveredValidator(null)}

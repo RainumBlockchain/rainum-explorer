@@ -1041,14 +1041,22 @@ function StatCard({ icon, title, value }: {
   value: string | React.ReactNode
 }) {
   return (
-    <div className="bg-white rounded border border-gray-200 p-5">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 bg-gray-100 rounded">
-          {icon}
+    <div className="relative bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-[#0019ff] hover:shadow-[0_0_20px_rgba(0,25,255,0.1)] transition-all duration-300 group overflow-hidden">
+      {/* Subtle grid pattern background */}
+      <div className="absolute inset-0 opacity-[0.02] group-hover:opacity-[0.04] transition-opacity" style={{
+        backgroundImage: 'linear-gradient(0deg, transparent 24%, rgba(0,25,255,.05) 25%, rgba(0,25,255,.05) 26%, transparent 27%, transparent 74%, rgba(0,25,255,.05) 75%, rgba(0,25,255,.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0,25,255,.05) 25%, rgba(0,25,255,.05) 26%, transparent 27%, transparent 74%, rgba(0,25,255,.05) 75%, rgba(0,25,255,.05) 76%, transparent 77%, transparent)',
+        backgroundSize: '20px 20px'
+      }}></div>
+
+      <div className="relative">
+        <div className="flex items-center gap-2.5 mb-3">
+          <div className="p-2 bg-gray-100 rounded group-hover:bg-[#0019ff]/10 transition-colors">
+            {icon}
+          </div>
+          <h3 className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{title}</h3>
         </div>
-        <h3 className="text-sm font-medium text-gray-600">{title}</h3>
+        <div className="text-2xl font-black text-gray-900 font-mono flex items-center gap-2">{value}</div>
       </div>
-      <div className="text-2xl font-bold text-gray-900 flex items-center gap-2">{value}</div>
     </div>
   )
 }

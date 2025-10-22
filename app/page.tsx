@@ -233,12 +233,12 @@ export default function Home() {
               }
             `}</style>
 
-            <div className="relative z-10 flex flex-col justify-center min-h-[480px]">
+            <div className="relative z-10 min-h-[480px] flex flex-col">
               {/* Slide 0: Wallet Extension */}
               {activeSlide === 0 && (
                 <>
-              {/* Badges */}
-              <div className="flex items-center gap-3 mb-3">
+              {/* Badges - Fixed at top */}
+              <div className="flex items-center gap-3 mb-6">
                 <div className="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded shadow-lg">
                   <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                   <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Featured</span>
@@ -252,56 +252,59 @@ export default function Home() {
                 </a>
               </div>
 
-              {/* Wallet Icon (white on blue) */}
-              <div className="w-14 h-14 bg-white rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-8 h-8 text-[#0019ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-              </div>
-
-              <h3 className="text-2xl font-bold text-white mb-2">
-                Rainum Wallet Extension
-              </h3>
-
-              <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                World's first dual-VM blockchain wallet. EVM + Move support in one browser extension.
-              </p>
-
-              {/* Feature List (white on blue) */}
-              <div className="space-y-2.5 mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                    <ArrowRightLeft className="text-[#0019ff]" size={16} strokeWidth={2} />
-                  </div>
-                  <span className="text-sm font-semibold text-white">EVM + Move Dual-VM</span>
+              {/* Centered Content */}
+              <div className="flex-1 flex flex-col justify-center">
+                {/* Wallet Icon (white on blue) */}
+                <div className="w-14 h-14 bg-white rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-[#0019ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
                 </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                    <ShieldCheck className="text-emerald-600" size={16} strokeWidth={2} />
-                  </div>
-                  <span className="text-sm font-semibold text-white">Built-in ZKP Privacy</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                    <Zap className="text-amber-600" size={16} strokeWidth={2} />
-                  </div>
-                  <span className="text-sm font-semibold text-white">1-Click Cross-VM Calls</span>
-                </div>
-              </div>
 
-              {/* Download Button */}
-              <a
-                href="https://chrome.google.com/webstore"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-white hover:bg-cyan-300 text-[#0019ff] hover:text-[#0014cc] px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
-              >
-                <ExternalLink size={18} strokeWidth={2} />
-                <span className="font-black">Download Extension</span>
-              </a>
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  Rainum Wallet Extension
+                </h3>
 
-              <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
-                <span className="text-white font-black">FREE</span> · Chrome & Firefox
+                <p className="text-blue-100 text-sm leading-relaxed mb-4">
+                  World's first dual-VM blockchain wallet. EVM + Move support in one browser extension.
+                </p>
+
+                {/* Feature List (white on blue) */}
+                <div className="space-y-2.5 mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
+                      <ArrowRightLeft className="text-[#0019ff]" size={16} strokeWidth={2} />
+                    </div>
+                    <span className="text-sm font-semibold text-white">EVM + Move Dual-VM</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
+                      <ShieldCheck className="text-emerald-600" size={16} strokeWidth={2} />
+                    </div>
+                    <span className="text-sm font-semibold text-white">Built-in ZKP Privacy</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
+                      <Zap className="text-amber-600" size={16} strokeWidth={2} />
+                    </div>
+                    <span className="text-sm font-semibold text-white">1-Click Cross-VM Calls</span>
+                  </div>
+                </div>
+
+                {/* Download Button */}
+                <a
+                  href="https://chrome.google.com/webstore"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-cyan-300 text-[#0019ff] hover:text-[#0014cc] px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
+                >
+                  <ExternalLink size={18} strokeWidth={2} />
+                  <span className="font-black">Download Extension</span>
+                </a>
+
+                <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
+                  <span className="text-white font-black">FREE</span> · Chrome & Firefox
+                </div>
               </div>
                 </>
               )}
@@ -309,71 +312,74 @@ export default function Home() {
               {/* Slide 1: DApps Promo */}
               {activeSlide === 1 && (
                 <>
-                  {/* Badge */}
-                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-3 shadow-lg">
+                  {/* Badge - Fixed at top */}
+                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
                     <div className="w-2 h-2 bg-violet-500 rounded-full animate-pulse"></div>
                     <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">DApps</span>
                   </div>
 
-                  {/* Rocket Icon */}
-                  <div className="w-14 h-14 bg-white rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                    <Rocket className="text-[#0019ff]" size={28} strokeWidth={2.5} />
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    Build on Rainum
-                  </h3>
-
-                  <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                    Deploy decentralized applications with dual-VM support. Choose EVM, Move, or use both.
-                  </p>
-
-                  {/* Feature List */}
-                  <div className="space-y-2.5 mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                        <Code className="text-[#0019ff]" size={16} strokeWidth={2} />
-                      </div>
-                      <span className="text-sm font-semibold text-white">Full SDK & CLI Tools</span>
+                  {/* Centered Content */}
+                  <div className="flex-1 flex flex-col justify-center">
+                    {/* Rocket Icon */}
+                    <div className="w-14 h-14 bg-white rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
+                      <Rocket className="text-[#0019ff]" size={28} strokeWidth={2.5} />
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                        <Coins className="text-emerald-600" size={16} strokeWidth={2} />
-                      </div>
-                      <span className="text-sm font-semibold text-white">Low Gas Fees</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                        <ArrowRightLeft className="text-amber-600" size={16} strokeWidth={2} />
-                      </div>
-                      <span className="text-sm font-semibold text-white">Native Cross-VM Calls</span>
-                    </div>
-                  </div>
 
-                  {/* CTA Buttons */}
-                  <div className="space-y-2">
-                    <a
-                      href="https://docs.rainum.io"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-[#0019ff] px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
-                    >
-                      <Code size={18} strokeWidth={2} />
-                      <span className="font-black">View Documentation</span>
-                    </a>
-                    <a
-                      href="https://github.com/rainum-labs"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 border-2 border-white text-white px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
-                    >
-                      <Rocket size={18} strokeWidth={2} />
-                      <span className="font-black">Start Building</span>
-                    </a>
-                  </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      Build on Rainum
+                    </h3>
 
-                  <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
-                    <span className="text-white font-black">OPEN SOURCE</span> · Community Built
+                    <p className="text-blue-100 text-sm leading-relaxed mb-4">
+                      Deploy decentralized applications with dual-VM support. Choose EVM, Move, or use both.
+                    </p>
+
+                    {/* Feature List */}
+                    <div className="space-y-2.5 mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
+                          <Code className="text-[#0019ff]" size={16} strokeWidth={2} />
+                        </div>
+                        <span className="text-sm font-semibold text-white">Full SDK & CLI Tools</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
+                          <Coins className="text-emerald-600" size={16} strokeWidth={2} />
+                        </div>
+                        <span className="text-sm font-semibold text-white">Low Gas Fees</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
+                          <ArrowRightLeft className="text-amber-600" size={16} strokeWidth={2} />
+                        </div>
+                        <span className="text-sm font-semibold text-white">Native Cross-VM Calls</span>
+                      </div>
+                    </div>
+
+                    {/* CTA Buttons */}
+                    <div className="space-y-2">
+                      <a
+                        href="https://docs.rainum.io"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-[#0019ff] px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
+                      >
+                        <Code size={18} strokeWidth={2} />
+                        <span className="font-black">View Documentation</span>
+                      </a>
+                      <a
+                        href="https://github.com/rainum-labs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 border-2 border-white text-white px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
+                      >
+                        <Rocket size={18} strokeWidth={2} />
+                        <span className="font-black">Start Building</span>
+                      </a>
+                    </div>
+
+                    <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
+                      <span className="text-white font-black">OPEN SOURCE</span> · Community Built
+                    </div>
                   </div>
                 </>
               )}
@@ -381,61 +387,64 @@ export default function Home() {
               {/* Slide 2: RainSwap DApp Promo */}
               {activeSlide === 2 && (
                 <>
-                  {/* Badge */}
-                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-3 shadow-lg">
+                  {/* Badge - Fixed at top */}
+                  <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
                     <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
                     <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Featured DApp</span>
                   </div>
 
-                  {/* RainSwap Icon */}
-                  <div className="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300 relative">
-                    <div className="absolute inset-0 bg-purple-400 rounded-xl blur opacity-40"></div>
-                    <ArrowRightLeft className="text-white relative z-10" size={28} strokeWidth={2.5} />
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    RainSwap DEX
-                  </h3>
-
-                  <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                    World's first dual-VM decentralized exchange. Swap EVM and Move tokens seamlessly.
-                  </p>
-
-                  {/* Feature List */}
-                  <div className="space-y-2.5 mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
-                        <ArrowRightLeft className="text-white" size={16} strokeWidth={2} />
-                      </div>
-                      <span className="text-sm font-semibold text-white">Swap EVM ↔ Move Tokens</span>
+                  {/* Centered Content */}
+                  <div className="flex-1 flex flex-col justify-center">
+                    {/* RainSwap Icon */}
+                    <div className="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300 relative">
+                      <div className="absolute inset-0 bg-purple-400 rounded-xl blur opacity-40"></div>
+                      <ArrowRightLeft className="text-white relative z-10" size={28} strokeWidth={2.5} />
                     </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
-                        <Coins className="text-white" size={16} strokeWidth={2} />
-                      </div>
-                      <span className="text-sm font-semibold text-white">Cross-VM Liquidity Pools</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
-                        <Zap className="text-white" size={16} strokeWidth={2} />
-                      </div>
-                      <span className="text-sm font-semibold text-white">Lightning Fast Swaps</span>
-                    </div>
-                  </div>
 
-                  {/* CTA Button */}
-                  <a
-                    href="https://rainswap.io"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full mb-3"
-                  >
-                    <ExternalLink size={18} strokeWidth={2} />
-                    <span className="font-black">Launch RainSwap</span>
-                  </a>
+                    <h3 className="text-2xl font-bold text-white mb-2">
+                      RainSwap DEX
+                    </h3>
 
-                  <div className="text-xs text-center text-blue-100 font-semibold">
-                    <span className="text-purple-300 font-black">LIVE ON MAINNET</span> · 50K+ Users
+                    <p className="text-blue-100 text-sm leading-relaxed mb-4">
+                      World's first dual-VM decentralized exchange. Swap EVM and Move tokens seamlessly.
+                    </p>
+
+                    {/* Feature List */}
+                    <div className="space-y-2.5 mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
+                          <ArrowRightLeft className="text-white" size={16} strokeWidth={2} />
+                        </div>
+                        <span className="text-sm font-semibold text-white">Swap EVM ↔ Move Tokens</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
+                          <Coins className="text-white" size={16} strokeWidth={2} />
+                        </div>
+                        <span className="text-sm font-semibold text-white">Cross-VM Liquidity Pools</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
+                          <Zap className="text-white" size={16} strokeWidth={2} />
+                        </div>
+                        <span className="text-sm font-semibold text-white">Lightning Fast Swaps</span>
+                      </div>
+                    </div>
+
+                    {/* CTA Button */}
+                    <a
+                      href="https://rainswap.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
+                    >
+                      <ExternalLink size={18} strokeWidth={2} />
+                      <span className="font-black">Launch RainSwap</span>
+                    </a>
+
+                    <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
+                      <span className="text-purple-300 font-black">LIVE ON MAINNET</span> · 50K+ Users
+                    </div>
                   </div>
                 </>
               )}

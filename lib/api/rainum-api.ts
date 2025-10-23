@@ -632,7 +632,16 @@ export async function getContract(address: string): Promise<Contract | null> {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
 
-    const contract = await res.json();
+    const data = await res.json();
+
+    // API wraps contract in {contract: {...}, success: true}
+    const contract = data.contract || data;
+
+    // Convert bytecode array to hex string if needed
+    if (contract.bytecode && Array.isArray(contract.bytecode)) {
+      contract.bytecode = '0x' + contract.bytecode.map((b: number) => b.toString(16).padStart(2, '0')).join('');
+    }
+
     return contract;
   } catch (error) {
     console.error('Failed to fetch contract:', error);

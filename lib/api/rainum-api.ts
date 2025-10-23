@@ -639,3 +639,35 @@ export async function getContract(address: string): Promise<Contract | null> {
     return null;
   }
 }
+
+/**
+ * Get transactions for a specific contract
+ */
+export async function getContractTransactions(address: string): Promise<Transaction[]> {
+  try {
+    const res = await fetch(`${API_BASE}/transactions/${address}`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      return [];
+    }
+
+    const data = await res.json();
+
+    // API returns {incoming: [...], outgoing: [...]} format for accounts
+    // For contracts, we want all interactions
+    if (data && typeof data === 'object' && 'incoming' in data && 'outgoing' in data) {
+      const allTransactions = [
+        ...data.outgoing,
+        ...data.incoming
+      ];
+      return allTransactions.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+    }
+
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error('Failed to fetch contract transactions:', error);
+    return [];
+  }
+}

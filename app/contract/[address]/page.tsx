@@ -3,19 +3,54 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useQuery } from '@tanstack/react-query'
-import { getContract } from '@/lib/api/rainum-api'
-import { FileCode, User, Clock, CheckCircle, AlertCircle, Copy, Code } from 'lucide-react'
+import { getContract, getContractTransactions, getAccount, type Transaction } from '@/lib/api/rainum-api'
+import { FileCode, User, Clock, CheckCircle, AlertCircle, Copy, Code, ArrowRightLeft, Coins, Activity } from 'lucide-react'
 import Link from 'next/link'
 import { formatHash } from '@/lib/utils/format'
-import { useState } from 'react'
+import { formatBalance } from '@/lib/utils/format-balance'
+import { RainIcon } from '@/components/shared/RainIcon'
+import { useState, useEffect } from 'react'
 
 export default function ContractDetailPage({ params }: { params: { address: string } }) {
   const [copied, setCopied] = useState(false)
+  const [currentTime, setCurrentTime] = useState(Date.now())
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now())
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const getAge = (timestamp: number) => {
+    const seconds = Math.floor((currentTime / 1000 - timestamp))
+    if (seconds < 60) return `${seconds}s`
+    const minutes = Math.floor(seconds / 60)
+    if (minutes < 60) return `${minutes}m`
+    const hours = Math.floor(minutes / 60)
+    if (hours < 24) return `${hours}h`
+    const days = Math.floor(hours / 24)
+    return `${days}d`
+  }
 
   const { data: contract, isLoading } = useQuery({
     queryKey: ['contract', params.address],
     queryFn: () => getContract(params.address),
     refetchInterval: 10000,
+  })
+
+  const { data: transactions } = useQuery({
+    queryKey: ['contract-transactions', params.address],
+    queryFn: () => getContractTransactions(params.address),
+    refetchInterval: 5000,
+    enabled: !!contract,
+  })
+
+  const { data: account } = useQuery({
+    queryKey: ['contract-balance', params.address],
+    queryFn: () => getAccount(params.address),
+    refetchInterval: 5000,
+    enabled: !!contract,
   })
 
   const handleCopy = (text: string) => {
@@ -139,19 +174,69 @@ export default function ContractDetailPage({ params }: { params: { address: stri
             </div>
           </div>
 
-          {/* Compiler Version */}
-          {contract.compiler_version && (
-            <div className="bg-white rounded-lg border border-gray-200 p-5">
-              <div className="flex items-center gap-2 mb-3">
-                <Code className="text-gray-600" size={18} strokeWidth={2} />
-                <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Compiler</h3>
-              </div>
-              <div className="text-lg font-bold text-gray-900">
-                {contract.compiler_version}
-              </div>
+          {/* Contract Balance */}
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Coins className="text-gray-600" size={18} strokeWidth={2} />
+              <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Balance</h3>
             </div>
-          )}
+            <div className="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <RainIcon size={20} className="flex-shrink-0" />
+              {account?.balance ? formatBalance(account.balance).full : '0'} RAIN
+            </div>
+          </div>
+
+          {/* Transaction Count */}
+          <div className="bg-white rounded-lg border border-gray-200 p-5">
+            <div className="flex items-center gap-2 mb-3">
+              <Activity className="text-gray-600" size={18} strokeWidth={2} />
+              <h3 className="text-sm font-semibold text-gray-600 uppercase tracking-wide">Transactions</h3>
+            </div>
+            <div className="text-lg font-bold text-gray-900">
+              {transactions?.length || 0} txs
+            </div>
+          </div>
         </div>
+
+        {/* Contract Transactions */}
+        {transactions && transactions.length > 0 && (
+          <div className="bg-white rounded border border-gray-200 overflow-hidden mb-6">
+            <div className="px-6 py-4 border-b border-gray-200 bg-white">
+              <h3 className="text-base font-semibold text-gray-900">Contract Transactions</h3>
+            </div>
+            <div className="divide-y divide-gray-200">
+              {transactions.slice(0, 10).map((tx: Transaction, index: number) => {
+                const ageText = getAge(tx.timestamp)
+                return (
+                  <Link
+                    key={`${tx.hash}-${index}`}
+                    href={'/transaction/' + tx.hash}
+                    className="px-6 py-4 hover:bg-blue-50/50 transition-colors flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-4">
+                      <ArrowRightLeft className="text-gray-400" size={16} strokeWidth={2} />
+                      <div>
+                        <div className="font-mono text-sm font-semibold text-gray-900">
+                          {formatHash(tx.hash, 12, 10)}
+                        </div>
+                        <div className="text-xs text-gray-500">{ageText} ago</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="text-sm font-mono text-gray-600">
+                        From: {formatHash(tx.from, 8, 6)}
+                      </div>
+                      <div className="flex items-center gap-1.5 text-sm font-bold text-gray-900">
+                        <RainIcon size={14} className="flex-shrink-0" />
+                        {formatBalance(tx.amount).full}
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Source Code */}
         {contract.verified && contract.source_code && (

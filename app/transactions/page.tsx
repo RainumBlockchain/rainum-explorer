@@ -156,9 +156,14 @@ export default function TransactionsListPage() {
                 const isPrivate = tx.zkp_enabled && tx.privacy_level === 'full'
                 const ageText = getAge(tx.timestamp)
 
-                // Determine VM type (mock data until API provides it)
+                // Determine VM type and transaction type
                 const vmType = (tx as any).vm_type || 'EVM'
-                const txType = tx.to ? 'Transfer' : 'Contract'
+                const txTypeRaw = (tx as any).tx_type || 'Transfer'
+
+                // Map backend tx_type to display string
+                const txType = txTypeRaw === 'ContractDeployment' ? 'Smart Contract'
+                  : txTypeRaw === 'ContractCall' ? 'Contract Call'
+                  : tx.to ? 'Transfer' : 'Contract'
 
                 // Extract block number from block_hash if available
                 const blockNumber = (tx as any).block_id || (tx as any).block_number || '...'

@@ -133,7 +133,7 @@ export default function Home() {
               {/* Feature Grid - 2x2 */}
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {/* Dual-VM Support */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 hover:scale-105 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-blue-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-violet-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <ArrowRightLeft className="text-white" size={20} strokeWidth={2.5} />
@@ -144,7 +144,7 @@ export default function Home() {
                 </div>
 
                 {/* ZKP Privacy */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 hover:scale-105 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-emerald-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Lock className="text-white" size={20} strokeWidth={2.5} />
@@ -155,7 +155,7 @@ export default function Home() {
                 </div>
 
                 {/* Real-Time Data */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 hover:scale-105 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-amber-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Zap className="text-white" size={20} strokeWidth={2.5} />
@@ -166,7 +166,7 @@ export default function Home() {
                 </div>
 
                 {/* Cross-VM Calls */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 hover:scale-105 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-cyan-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <Activity className="text-white" size={20} strokeWidth={2.5} />
@@ -179,19 +179,19 @@ export default function Home() {
 
               {/* Live Stats */}
               <div className="grid grid-cols-4 gap-3">
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 hover:scale-105 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-[#0019ff] leading-tight mb-2">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Last Block</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 hover:scale-105 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-emerald-600/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-emerald-600 leading-tight mb-2">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Current TPS</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 hover:scale-105 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-violet-600/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-violet-600 leading-tight mb-2">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Online Now</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 hover:scale-105 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-amber-600/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-amber-600 leading-tight mb-2">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Total Supply</div>
                 </div>
@@ -483,10 +483,10 @@ export default function Home() {
             icon={<Coins className="text-cyan-600" size={20} strokeWidth={2} />}
             title="Total Supply"
             value={totalSupply ? (
-              <>
-                <RainIcon size={20} />
-                {formatNumber(totalSupply)} RAIN
-              </>
+              <div className="flex items-center gap-2 whitespace-nowrap overflow-hidden">
+                <RainIcon size={20} className="flex-shrink-0" />
+                <span className={totalSupply > 999999999 ? 'text-xl' : ''}>{formatNumber(totalSupply)} RAIN</span>
+              </div>
             ) : '...'}
           />
         </div>
@@ -729,7 +729,7 @@ export default function Home() {
 
             {/* Column Headers */}
             <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
-              <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_150px_130px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+              <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_200px_130px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
                 <div>Block</div>
                 <div>TX Hash</div>
                 <div>Age</div>
@@ -787,7 +787,7 @@ export default function Home() {
                     key={`${tx.hash}-${index}`}
                     className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                   >
-                    <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_150px_130px] gap-4 items-center">
+                    <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_200px_130px] gap-4 items-center">
                       {/* Block */}
                       <div>
                         {blockNumber !== '...' ? (
@@ -1004,7 +1004,7 @@ export default function Home() {
 
               {/* Move VM */}
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-violet-500 flex items-center justify-center">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-fuchsia-500 flex items-center justify-center">
                   <span className="text-white font-black text-xs">Move</span>
                 </div>
                 <div>

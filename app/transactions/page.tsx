@@ -109,7 +109,7 @@ export default function TransactionsListPage() {
 
           {/* Table Header */}
           <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
-            <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_150px_130px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+            <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_200px_130px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
               <div>Block</div>
               <div>TX Hash</div>
               <div>Age</div>
@@ -168,7 +168,7 @@ export default function TransactionsListPage() {
                   key={`${tx.hash}-${index}`}
                   className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                 >
-                    <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_150px_130px] gap-4 items-center">
+                    <div className="grid grid-cols-[100px_220px_100px_80px_100px_1fr_1fr_200px_130px] gap-4 items-center">
                       {/* Block */}
                       <div>
                         {blockNumber !== '...' ? (

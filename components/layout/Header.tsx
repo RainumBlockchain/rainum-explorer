@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Search, Blocks, ArrowRightLeft, Users, Database, ChevronDown, Activity, Check, BarChart3, Trophy, BookOpen, Monitor, Code, Play, Package } from 'lucide-react'
+import { Search, Blocks, ArrowRightLeft, Users, Database, ChevronDown, Activity, Check, BarChart3, Trophy, BookOpen, Monitor, Code, Play, Package, FileCode } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { SearchCommand } from '@/components/shared/SearchCommand'
 import { useQuery } from '@tanstack/react-query'
@@ -211,6 +211,19 @@ export function Header() {
                           <div className="flex-1 min-w-0">
                             <div className="font-semibold text-gray-900 text-sm mb-0.5">Validators</div>
                             <div className="text-xs text-gray-500">Network validators & staking</div>
+                          </div>
+                        </Link>
+
+                        <Link
+                          href="/contracts"
+                          className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors group"
+                        >
+                          <div className="p-2 bg-indigo-50 rounded-lg group-hover:bg-indigo-100 transition-colors">
+                            <FileCode size={18} className="text-indigo-600" strokeWidth={2} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-gray-900 text-sm mb-0.5">Smart Contracts</div>
+                            <div className="text-xs text-gray-500">Deployed contracts & verification</div>
                           </div>
                         </Link>
                       </div>

@@ -112,6 +112,19 @@ export interface SlashingEvent {
   amount: number;
 }
 
+export interface Contract {
+  address: string;
+  deployer: string;
+  bytecode: string;
+  deployed_at: number;
+  verified?: boolean;
+  source_code?: string;
+  contract_name?: string;
+  compiler_version?: string;
+  optimization?: boolean;
+  constructor_arguments?: string;
+}
+
 // ============================================================================
 // NETWORK STATUS
 // ============================================================================
@@ -577,5 +590,52 @@ export async function getValidatorAppeals(address: string): Promise<SlashAppeal[
   } catch (error) {
     console.error('Failed to fetch validator appeals:', error);
     return [];
+  }
+}
+
+// ============================================================================
+// CONTRACTS
+// ============================================================================
+
+/**
+ * Get all deployed contracts
+ */
+export async function getContracts(): Promise<Contract[]> {
+  try {
+    const res = await fetch(`${API_BASE}/contracts`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const contracts = await res.json();
+    return contracts || [];
+  } catch (error) {
+    console.error('Failed to fetch contracts:', error);
+    return [];
+  }
+}
+
+/**
+ * Get specific contract by address
+ */
+export async function getContract(address: string): Promise<Contract | null> {
+  try {
+    const res = await fetch(`${API_BASE}/contract/${address}`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) {
+      if (res.status === 404) return null;
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const contract = await res.json();
+    return contract;
+  } catch (error) {
+    console.error('Failed to fetch contract:', error);
+    return null;
   }
 }

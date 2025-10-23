@@ -202,16 +202,16 @@ export default function BlocksListPage() {
 
                     {/* Gas Used */}
                     <div className="text-right text-base text-gray-700 font-bold flex items-center justify-end gap-1">
-                      <RainIcon size={16} />
-                      {gasUsed > 0 ? `${(gasUsed / 1000).toFixed(1)}K` : '0'}
+                      <RainIcon size={16} className="flex-shrink-0" />
+                      <span className="whitespace-nowrap">{gasUsed > 0 ? `${(gasUsed / 1000).toFixed(1)}K` : '0'}</span>
                     </div>
 
                     {/* Reward */}
                     <div className="text-right">
-                      <span className="text-base font-black text-amber-600 flex items-center justify-end gap-1">
-                        <RainIcon size={16} />
-                        +{reward}
-                      </span>
+                      <div className="flex items-center justify-end gap-1 text-base font-black text-amber-600">
+                        <RainIcon size={16} className="flex-shrink-0" />
+                        <span className="whitespace-nowrap">+{reward}</span>
+                      </div>
                     </div>
 
                     {/* Shard */}

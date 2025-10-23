@@ -198,10 +198,10 @@ export default function TransactionsListPage() {
                           vmType === 'EVM'
                             ? 'bg-blue-50 text-blue-700'
                             : vmType === 'Move'
-                            ? 'bg-violet-50 text-violet-700'
+                            ? 'bg-fuchsia-50 text-fuchsia-700'
                             : 'bg-emerald-50 text-emerald-700'
                         }`}>
-                          {vmType}
+                          {vmType.toUpperCase()}
                         </span>
                       </div>
 
@@ -310,10 +310,10 @@ export default function TransactionsListPage() {
                             <span className="text-base font-bold">Private</span>
                           </div>
                         ) : (
-                          <span className="text-base font-bold text-gray-900 flex items-center justify-end gap-1.5">
-                            <RainIcon size={16} />
-                            {formatBalance(tx.amount).full} RAIN
-                          </span>
+                          <div className="flex items-center justify-end gap-1.5 text-base font-bold text-gray-900">
+                            <RainIcon size={16} className="flex-shrink-0" />
+                            <span className="whitespace-nowrap">{formatBalance(tx.amount).full} RAIN</span>
+                          </div>
                         )}
                       </div>
 

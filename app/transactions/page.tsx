@@ -438,7 +438,7 @@ export default function TransactionsListPage() {
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">Cross-VM Transaction</h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Transaction that calls between EVM ↔ Move VMs. <span className="text-emerald-400 font-semibold">Rainum's unique dual-VM interoperability feature</span> enabling seamless communication across different blockchain runtimes.
+                    Transaction that calls between EVM ↔ Move VMs. <span className="text-emerald-400 font-semibold">Rainum&apos;s unique dual-VM interoperability feature</span> enabling seamless communication across different blockchain runtimes.
                   </p>
                 </div>
               </div>

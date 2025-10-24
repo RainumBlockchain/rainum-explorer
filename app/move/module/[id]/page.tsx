@@ -1,7 +1,7 @@
 'use client';
 
-import { use, useState } from 'react';
-import { FileCode, Clock, User, Package, CheckCircle, Code } from 'lucide-react';
+import { use } from 'react';
+import { FileCode, CheckCircle } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 
@@ -11,9 +11,6 @@ interface MoveModulePageProps {
 
 export default function MoveModulePage({ params }: MoveModulePageProps) {
   const { id } = use(params);
-  const [module, setModule] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
   // TODO: Fetch module from API
   // useEffect(() => {
   //   fetch(`http://localhost:8080/move/module/${id}`)
@@ -125,7 +122,7 @@ export default function MoveModulePage({ params }: MoveModulePageProps) {
                 Rainum Move VM - Developer Preview
               </div>
               <div className="text-sm text-purple-700">
-                You're viewing a Move module on Rainum's dual-VM blockchain.
+                You&apos;re viewing a Move module on Rainum&apos;s dual-VM blockchain.
                 Full Move VM support is in development (Phase 2 complete!).
               </div>
             </div>

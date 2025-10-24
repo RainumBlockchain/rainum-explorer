@@ -4,7 +4,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useQuery } from '@tanstack/react-query'
 import { getContract, getContractTransactions, getAccount, type Transaction } from '@/lib/api/rainum-api'
-import { FileCode, User, Clock, CheckCircle, AlertCircle, Copy, Code, ArrowRightLeft, Coins, Activity } from 'lucide-react'
+import { FileCode, User, Clock, CheckCircle, AlertCircle, Copy, ArrowRightLeft, Coins, Activity } from 'lucide-react'
 import Link from 'next/link'
 import { formatHash } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
@@ -89,7 +89,7 @@ export default function ContractDetailPage({ params }: { params: { address: stri
           <div className="text-center py-12">
             <FileCode className="mx-auto mb-4 text-gray-300" size={48} strokeWidth={1.5} />
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Contract Not Found</h2>
-            <p className="text-gray-600">The contract address you're looking for doesn't exist.</p>
+            <p className="text-gray-600">The contract address you&apos;re looking for doesn&apos;t exist.</p>
           </div>
         </main>
         <Footer />

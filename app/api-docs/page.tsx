@@ -3,7 +3,7 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useState } from 'react'
-import { ChevronDown, ChevronRight, Copy, Check, ExternalLink, Code, BookOpen, Zap, Shield, ArrowRight, Lock, Blocks, ArrowRightLeft, Users, Database } from 'lucide-react'
+import { ChevronDown, ChevronRight, Copy, Check, ExternalLink, Code, BookOpen, Zap, Shield, ArrowRight, Lock, Blocks, ArrowRightLeft } from 'lucide-react'
 
 interface EndpointProps {
   method: 'GET' | 'POST' | 'PUT' | 'DELETE'
@@ -20,12 +20,15 @@ interface EndpointProps {
   }>
   requestBody?: {
     required: boolean
-    content: any
+    content: Record<string, unknown>
   }
-  responses: Record<string, {
-    description: string
-    content?: any
-  }>
+  responses: Record<
+    string,
+    {
+      description: string
+      content?: Record<string, unknown>
+    }
+  >
 }
 
 const Endpoint = ({ method, path, summary, description, requiresAuth, parameters, requestBody, responses }: EndpointProps) => {
@@ -1049,7 +1052,7 @@ curl -X GET "http://localhost:8080/account/0x742d35Cc6634C0532925a3b844Bc9e7595f
                     <div className="space-y-3 text-xs">
                       <div className="bg-white rounded p-3 border border-red-100">
                         <div className="font-semibold text-red-800 mb-1">400 Bad Request - Invalid address format</div>
-                        <div className="text-gray-600">Ensure addresses start with "0x" and are 42 characters long (including prefix)</div>
+                        <div className="text-gray-600">Ensure addresses start with &quot;0x&quot; and are 42 characters long (including prefix)</div>
                       </div>
                       <div className="bg-white rounded p-3 border border-red-100">
                         <div className="font-semibold text-red-800 mb-1">400 Bad Request - Insufficient balance</div>
@@ -1073,7 +1076,7 @@ curl -X GET "http://localhost:8080/account/0x742d35Cc6634C0532925a3b844Bc9e7595f
               <div className="bg-white rounded border border-gray-300 p-6 mb-6 shadow-sm">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">Authentication</h2>
                 <div className="space-y-4 text-sm text-gray-700">
-                  <p>Most endpoints are public and don't require authentication. However, administrative and enterprise features require a JWT token.</p>
+                  <p>Most endpoints are public and don&apos;t require authentication. However, administrative and enterprise features require a JWT token.</p>
 
                   <div>
                     <h3 className="font-bold text-gray-900 mb-2 text-base">Authenticate</h3>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { FileCode, Search, TrendingUp, Users, Code } from 'lucide-react';
+import { FileCode, Search, TrendingUp, Users, Code, Package, Clock, User } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import Link from 'next/link';

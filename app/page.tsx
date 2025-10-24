@@ -4,14 +4,12 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useQuery } from '@tanstack/react-query'
 import { getStatus, getBlocks, getTransactions, getValidators, getTotalSupply, type Block, type Transaction, type ValidatorInfo } from '@/lib/api/rainum-api'
-import { Blocks, Activity, Users, TrendingUp, ArrowRight, ArrowRightLeft, ShieldCheck, Coins, Search, Zap, Lock, ExternalLink, Info, X, ChevronLeft, ChevronRight, Rocket, Code } from 'lucide-react'
+import { Blocks, Activity, Users, TrendingUp, ArrowRight, ArrowRightLeft, ShieldCheck, Coins, Zap, Lock, ExternalLink, Info, X, ChevronLeft, ChevronRight, Rocket, Code } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar } from '@/components/shared/Avatar'
-import { PrivacyBadge } from '@/components/shared/PrivacyBadge'
 import { RainIcon } from '@/components/shared/RainIcon'
 import { formatHash, formatNumber } from '@/lib/utils/format'
 import { formatBalance } from '@/lib/utils/format-balance'
-import { getAddressColor } from '@/lib/utils/color-hash'
 import { useState, useEffect } from 'react'
 
 export default function Home() {
@@ -127,7 +125,7 @@ export default function Home() {
 
               {/* Subtitle with Dual-VM highlight */}
               <p className="text-blue-100 mb-8 text-base leading-relaxed">
-                The world's first <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded">EVM + Move</span> dual-VM blockchain explorer with real-time data and zero-knowledge privacy.
+                The world&apos;s first <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded">EVM + Move</span> dual-VM blockchain explorer with real-time data and zero-knowledge privacy.
               </p>
 
               {/* Feature Grid - 2x2 */}
@@ -267,7 +265,7 @@ export default function Home() {
                 </h3>
 
                 <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                  World's first dual-VM blockchain wallet. EVM + Move support in one browser extension.
+                  World&apos;s first dual-VM blockchain wallet. EVM + Move support in one browser extension.
                 </p>
 
                 {/* Feature List (white on blue) */}
@@ -411,7 +409,7 @@ export default function Home() {
                     </h3>
 
                     <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                      World's first dual-VM decentralized exchange. Swap EVM and Move tokens seamlessly.
+                      World&apos;s first dual-VM decentralized exchange. Swap EVM and Move tokens seamlessly.
                     </p>
 
                     {/* Feature List */}
@@ -1028,7 +1026,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-lg font-bold text-white mb-1">Cross-VM Transaction</h3>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    Transaction that calls between EVM ↔ Move VMs. <span className="text-emerald-400 font-semibold">Rainum's unique dual-VM interoperability feature</span> enabling seamless communication across different blockchain runtimes.
+                    Transaction that calls between EVM ↔ Move VMs. <span className="text-emerald-400 font-semibold">Rainum&apos;s unique dual-VM interoperability feature</span> enabling seamless communication across different blockchain runtimes.
                   </p>
                 </div>
               </div>

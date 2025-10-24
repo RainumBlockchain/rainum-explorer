@@ -324,15 +324,38 @@ export default function TransactionsListPage() {
 
                       {/* Status */}
                       <div className="text-center">
-                        <span className={`inline-flex items-center px-4 py-2 rounded text-base font-black ${
-                          tx.status === 'confirmed' || !tx.status
-                            ? 'bg-emerald-50 text-emerald-700'
-                            : tx.status === 'pending'
-                            ? 'bg-amber-50 text-amber-700'
-                            : 'bg-red-50 text-red-700'
-                        }`}>
-                          {tx.status === 'confirmed' || !tx.status ? 'Confirmed' : tx.status === 'pending' ? 'Pending' : 'Failed'}
-                        </span>
+                        {tx.status === 'pending' ? (
+                          <div className="flex flex-col items-center gap-1">
+                            <span className="inline-flex items-center px-4 py-2 rounded text-base font-black bg-amber-50 text-amber-700">
+                              Pending
+                            </span>
+                            {(() => {
+                              const pendingSec = Math.floor((currentTime / 1000) - tx.timestamp)
+                              const isContract = txTypeRaw === 'ContractDeployment' || txTypeRaw === 'ContractCall'
+                              const timeout = isContract ? 1800 : 300 // 30min or 5min
+                              const expiresIn = timeout - pendingSec
+                              const expiresMin = Math.floor(expiresIn / 60)
+
+                              if (expiresIn <= 0) return null
+
+                              return (
+                                <span className={`text-xs font-semibold ${
+                                  expiresIn < 300 ? 'text-red-600' : 'text-gray-500'
+                                }`}>
+                                  Expires in {expiresMin}m
+                                </span>
+                              )
+                            })()}
+                          </div>
+                        ) : (
+                          <span className={`inline-flex items-center px-4 py-2 rounded text-base font-black ${
+                            tx.status === 'confirmed' || !tx.status
+                              ? 'bg-emerald-50 text-emerald-700'
+                              : 'bg-red-50 text-red-700'
+                          }`}>
+                            {tx.status === 'confirmed' || !tx.status ? 'Confirmed' : 'Failed'}
+                          </span>
+                        )}
                       </div>
                     </div>
                 </div>

@@ -355,8 +355,8 @@ export default function ContractsListPage() {
                             Verified
                           </span>
                           {hoveredBadge === `verified-${index}` && (
-                            <div className="absolute z-50 left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-xl whitespace-nowrap animate-in fade-in zoom-in-95 duration-150">
-                              Source code published and verified - Safe to audit
+                            <div className="absolute z-50 left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-xl w-48 text-center animate-in fade-in zoom-in-95 duration-150">
+                              Source code verified ✓
                               <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
                             </div>
                           )}
@@ -372,8 +372,8 @@ export default function ContractsListPage() {
                             Unverified
                           </span>
                           {hoveredBadge === `unverified-${index}` && (
-                            <div className="absolute z-50 left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-xl whitespace-nowrap animate-in fade-in zoom-in-95 duration-150">
-                              Source code not published - Use with caution
+                            <div className="absolute z-50 left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-xl w-44 text-center animate-in fade-in zoom-in-95 duration-150">
+                              No source code - Use caution ⚠
                               <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
                             </div>
                           )}

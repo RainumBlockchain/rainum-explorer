@@ -18,6 +18,7 @@ export default function ContractsListPage() {
   const [isVMInfoOpen, setIsVMInfoOpen] = useState(false)
   const [isVerificationInfoOpen, setIsVerificationInfoOpen] = useState(false)
   const [hoveredAddress, setHoveredAddress] = useState<string | null>(null)
+  const [hoveredBadge, setHoveredBadge] = useState<string | null>(null)
 
   // Update time every second for live age countdown
   useEffect(() => {
@@ -342,23 +343,41 @@ export default function ContractsListPage() {
                     </div>
 
                     {/* Verification Status */}
-                    <div className="text-center">
+                    <div className="text-center relative">
                       {contract.verified ? (
-                        <span
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded text-sm font-bold cursor-help"
-                          title="Source code published and verified - Safe to audit"
+                        <div
+                          className="inline-block"
+                          onMouseEnter={() => setHoveredBadge(`verified-${index}`)}
+                          onMouseLeave={() => setHoveredBadge(null)}
                         >
-                          <CheckCircle size={14} strokeWidth={2.5} />
-                          Verified
-                        </span>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded text-sm font-bold cursor-help">
+                            <CheckCircle size={14} strokeWidth={2.5} />
+                            Verified
+                          </span>
+                          {hoveredBadge === `verified-${index}` && (
+                            <div className="absolute z-50 left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-xl whitespace-nowrap animate-in fade-in zoom-in-95 duration-150">
+                              Source code published and verified - Safe to audit
+                              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
+                            </div>
+                          )}
+                        </div>
                       ) : (
-                        <span
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 rounded text-sm font-bold cursor-help"
-                          title="Source code not published - Cannot audit contract code. Use with caution."
+                        <div
+                          className="inline-block"
+                          onMouseEnter={() => setHoveredBadge(`unverified-${index}`)}
+                          onMouseLeave={() => setHoveredBadge(null)}
                         >
-                          <AlertCircle size={14} strokeWidth={2} />
-                          Unverified
-                        </span>
+                          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 rounded text-sm font-bold cursor-help">
+                            <AlertCircle size={14} strokeWidth={2} />
+                            Unverified
+                          </span>
+                          {hoveredBadge === `unverified-${index}` && (
+                            <div className="absolute z-50 left-1/2 -translate-x-1/2 mt-2 px-3 py-2 bg-gray-900 text-white text-xs rounded-lg shadow-xl whitespace-nowrap animate-in fade-in zoom-in-95 duration-150">
+                              Source code not published - Use with caution
+                              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
+                            </div>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>

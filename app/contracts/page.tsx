@@ -224,13 +224,13 @@ export default function ContractsListPage() {
                     {/* Contract Address */}
                     <Link
                       href={'/contract/' + contract.address}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded"
                       style={{
                         backgroundColor: hoveredAddress?.toLowerCase() === contract.address.toLowerCase() ? '#fef3e7' : 'transparent',
                         outline: hoveredAddress?.toLowerCase() === contract.address.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                        outlineOffset: '2px',
+                        outlineOffset: '-2px',
                         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                        transitionDelay: hoveredAddress?.toLowerCase() === contract.address.toLowerCase() ? '0.2s' : '0s'
+                        transitionDelay: hoveredAddress?.toLowerCase() === contract.address.toLowerCase() ? '0.25s' : '0s'
                       }}
                       onMouseEnter={() => setHoveredAddress(contract.address)}
                       onMouseLeave={() => setHoveredAddress(null)}
@@ -249,10 +249,10 @@ export default function ContractsListPage() {
                             e.stopPropagation();
                             navigator.clipboard.writeText(contract.address);
                           }}
-                          className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-[#f39c12] hover:bg-[#e67e22] text-white transition-all shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
+                          className="inline-flex items-center justify-center w-5 h-5 rounded bg-[#f39c12] hover:bg-[#e67e22] text-white transition-colors"
                           title="Copy full address"
                         >
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                           </svg>
@@ -263,13 +263,13 @@ export default function ContractsListPage() {
                     {/* Deployer */}
                     <Link
                       href={'/account/' + contract.deployer}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded"
                       style={{
                         backgroundColor: hoveredAddress?.toLowerCase() === contract.deployer.toLowerCase() ? '#fef3e7' : 'transparent',
                         outline: hoveredAddress?.toLowerCase() === contract.deployer.toLowerCase() ? '2px dashed #f39c12' : 'none',
-                        outlineOffset: '2px',
+                        outlineOffset: '-2px',
                         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                        transitionDelay: hoveredAddress?.toLowerCase() === contract.deployer.toLowerCase() ? '0.2s' : '0s'
+                        transitionDelay: hoveredAddress?.toLowerCase() === contract.deployer.toLowerCase() ? '0.25s' : '0s'
                       }}
                       onMouseEnter={() => setHoveredAddress(contract.deployer)}
                       onMouseLeave={() => setHoveredAddress(null)}
@@ -287,10 +287,10 @@ export default function ContractsListPage() {
                             e.stopPropagation();
                             navigator.clipboard.writeText(contract.deployer);
                           }}
-                          className="inline-flex items-center justify-center w-6 h-6 rounded-md bg-[#f39c12] hover:bg-[#e67e22] text-white transition-all shadow-sm hover:shadow-md hover:scale-105 active:scale-95"
+                          className="inline-flex items-center justify-center w-5 h-5 rounded bg-[#f39c12] hover:bg-[#e67e22] text-white transition-colors"
                           title="Copy full address"
                         >
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
                             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                           </svg>

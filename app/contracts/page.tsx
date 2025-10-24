@@ -152,7 +152,7 @@ export default function ContractsListPage() {
 
           {/* Table Header */}
           <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
-            <div className="grid grid-cols-[100px_280px_200px_120px_90px_minmax(180px,1fr)_130px_140px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+            <div className="grid grid-cols-[100px_320px_220px_140px_100px_minmax(200px,1fr)_140px_150px] gap-6 text-base font-bold text-gray-700 uppercase tracking-wide">
               <div>Block</div>
               <div>Contract Address</div>
               <div>Deployer</div>
@@ -178,7 +178,7 @@ export default function ContractsListPage() {
             {isLoading ? (
               Array.from({ length: 10 }).map((_, i) => (
                 <div key={i} className="px-6 py-5 animate-pulse border-t border-gray-200">
-                  <div className="grid grid-cols-[100px_280px_200px_120px_90px_minmax(180px,1fr)_130px_140px] gap-4 items-center">
+                  <div className="grid grid-cols-[100px_320px_220px_140px_100px_minmax(200px,1fr)_140px_150px] gap-6 items-center">
                     <div className="h-3 w-12 bg-gray-100 rounded"></div>
                     <div className="h-3 w-32 bg-gray-100 rounded"></div>
                     <div className="h-3 w-32 bg-gray-100 rounded"></div>
@@ -207,7 +207,7 @@ export default function ContractsListPage() {
                   key={`${contract.address}-${index}`}
                   className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                 >
-                  <div className="grid grid-cols-[100px_280px_200px_120px_90px_minmax(180px,1fr)_130px_140px] gap-4 items-center">
+                  <div className="grid grid-cols-[100px_320px_220px_140px_100px_minmax(200px,1fr)_140px_150px] gap-6 items-center">
                     {/* Block */}
                     <div>
                       {blockNum !== '...' ? (

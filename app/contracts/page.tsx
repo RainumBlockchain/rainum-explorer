@@ -36,7 +36,14 @@ export default function ContractsListPage() {
   }, [])
 
   const getAge = (timestamp: number) => {
-    const seconds = Math.floor((currentTime / 1000) - timestamp)
+    // Handle both nanoseconds and seconds timestamps
+    // If timestamp > 10 billion, it's nanoseconds - convert to seconds
+    const timestampSec = timestamp > 10_000_000_000
+      ? Math.floor(timestamp / 1_000_000_000)
+      : timestamp
+
+    const seconds = Math.floor((currentTime / 1000) - timestampSec)
+    if (seconds < 0) return '0s' // Handle future timestamps
     if (seconds < 60) return `${seconds}s`
     const minutes = Math.floor(seconds / 60)
     if (minutes < 60) return `${minutes}m`
@@ -145,7 +152,7 @@ export default function ContractsListPage() {
 
           {/* Table Header */}
           <div className="px-6 py-5 bg-gray-50 border-b border-gray-200">
-            <div className="grid grid-cols-[80px_240px_180px_100px_80px_1fr_120px_120px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
+            <div className="grid grid-cols-[100px_280px_200px_120px_90px_minmax(180px,1fr)_130px_140px] gap-4 text-base font-bold text-gray-700 uppercase tracking-wide">
               <div>Block</div>
               <div>Contract Address</div>
               <div>Deployer</div>
@@ -171,7 +178,7 @@ export default function ContractsListPage() {
             {isLoading ? (
               Array.from({ length: 10 }).map((_, i) => (
                 <div key={i} className="px-6 py-5 animate-pulse border-t border-gray-200">
-                  <div className="grid grid-cols-[80px_240px_180px_100px_80px_1fr_120px_120px] gap-4 items-center">
+                  <div className="grid grid-cols-[100px_280px_200px_120px_90px_minmax(180px,1fr)_130px_140px] gap-4 items-center">
                     <div className="h-3 w-12 bg-gray-100 rounded"></div>
                     <div className="h-3 w-32 bg-gray-100 rounded"></div>
                     <div className="h-3 w-32 bg-gray-100 rounded"></div>
@@ -200,7 +207,7 @@ export default function ContractsListPage() {
                   key={`${contract.address}-${index}`}
                   className="px-6 py-5 transition-all hover:bg-blue-50/50 border-t border-gray-200 group"
                 >
-                  <div className="grid grid-cols-[80px_240px_180px_100px_80px_1fr_120px_120px] gap-4 items-center">
+                  <div className="grid grid-cols-[100px_280px_200px_120px_90px_minmax(180px,1fr)_130px_140px] gap-4 items-center">
                     {/* Block */}
                     <div>
                       {blockNum !== '...' ? (

@@ -16,6 +16,7 @@ export default function ContractsListPage() {
   const [currentTime, setCurrentTime] = useState(Date.now())
   const [vmFilter, setVmFilter] = useState<VMFilter>('all')
   const [isVMInfoOpen, setIsVMInfoOpen] = useState(false)
+  const [isVerificationInfoOpen, setIsVerificationInfoOpen] = useState(false)
   const [hoveredAddress, setHoveredAddress] = useState<string | null>(null)
 
   // Update time every second for live age countdown
@@ -26,10 +27,13 @@ export default function ContractsListPage() {
     return () => clearInterval(interval)
   }, [])
 
-  // Close modal on ESC key
+  // Close modals on ESC key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsVMInfoOpen(false)
+      if (e.key === 'Escape') {
+        setIsVMInfoOpen(false)
+        setIsVerificationInfoOpen(false)
+      }
     }
     window.addEventListener('keydown', handleEsc)
     return () => window.removeEventListener('keydown', handleEsc)
@@ -169,7 +173,16 @@ export default function ContractsListPage() {
               </div>
               <div>Name</div>
               <div className="text-center">TX Count</div>
-              <div className="text-center">Status</div>
+              <div className="text-center flex items-center justify-center gap-1">
+                <span>Status</span>
+                <button
+                  onClick={() => setIsVerificationInfoOpen(true)}
+                  className="inline-flex items-center justify-center w-4 h-4 rounded-full text-gray-500 hover:text-[#0019ff] hover:bg-gray-200 transition-all"
+                  title="What is contract verification?"
+                >
+                  <Info size={14} strokeWidth={2.5} />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -410,6 +423,83 @@ export default function ContractsListPage() {
                     Execute Move smart contracts (Aptos/Sui inspired). Enhanced safety with resource-oriented programming and formal verification capabilities.
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Verification Info Modal */}
+      {isVerificationInfoOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+          onClick={() => setIsVerificationInfoOpen(false)}
+        >
+          <div
+            className="bg-gray-800 rounded-lg max-w-2xl w-full shadow-2xl animate-in zoom-in-95 duration-200"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-5 border-b border-gray-700">
+              <h2 className="text-2xl font-bold text-white">Contract Verification Status</h2>
+              <button
+                onClick={() => setIsVerificationInfoOpen(false)}
+                className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+              >
+                <X size={20} strokeWidth={2} />
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="px-6 py-6 space-y-6">
+              {/* Verified */}
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center">
+                  <CheckCircle className="text-white" size={20} strokeWidth={2.5} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-1">Verified Contracts</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    Source code has been published and matches the deployed bytecode. You can review the code, understand contract functionality, and trust that it does what it claims.
+                  </p>
+                  <div className="mt-2 text-emerald-400 text-sm font-semibold">
+                    ✓ Source code available
+                  </div>
+                  <div className="text-emerald-400 text-sm font-semibold">
+                    ✓ Bytecode matches source
+                  </div>
+                  <div className="text-emerald-400 text-sm font-semibold">
+                    ✓ Auditable and transparent
+                  </div>
+                </div>
+              </div>
+
+              {/* Unverified */}
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+                  <AlertCircle className="text-gray-300" size={20} strokeWidth={2} />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-1">Unverified Contracts</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    Source code not published. Contract may still be legitimate, but you cannot review the code before interacting. <span className="text-amber-400 font-semibold">Exercise caution</span> when using unverified contracts.
+                  </p>
+                  <div className="mt-2 text-gray-400 text-sm">
+                    ⚠ Source code unavailable
+                  </div>
+                  <div className="text-gray-400 text-sm">
+                    ⚠ Cannot audit functionality
+                  </div>
+                  <div className="text-gray-400 text-sm">
+                    ⚠ Use at your own risk
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-700/50 rounded-lg p-4 border border-gray-600">
+                <p className="text-gray-300 text-sm">
+                  <span className="font-semibold text-white">Note:</span> Contract deployers can verify their contracts by submitting source code through the verification API or explorer interface.
+                </p>
               </div>
             </div>
           </div>

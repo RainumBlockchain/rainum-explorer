@@ -344,12 +344,18 @@ export default function ContractsListPage() {
                     {/* Verification Status */}
                     <div className="text-center">
                       {contract.verified ? (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded text-sm font-bold">
+                        <span
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded text-sm font-bold cursor-help"
+                          title="Source code published and verified - Safe to audit"
+                        >
                           <CheckCircle size={14} strokeWidth={2.5} />
                           Verified
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 rounded text-sm font-bold">
+                        <span
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 text-gray-600 rounded text-sm font-bold cursor-help"
+                          title="Source code not published - Cannot audit contract code. Use with caution."
+                        >
                           <AlertCircle size={14} strokeWidth={2} />
                           Unverified
                         </span>

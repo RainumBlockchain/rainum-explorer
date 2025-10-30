@@ -4,7 +4,8 @@
  * All amounts are now in RAIN directly (no micro-RAIN conversion)
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8080';
+// Use Next.js API proxy to avoid browser security restrictions
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || '/api/blockchain';
 
 // ============================================================================
 // TYPE DEFINITIONS

@@ -215,6 +215,19 @@ export function Header() {
                         </Link>
 
                         <Link
+                          href="/nodes"
+                          className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors group"
+                        >
+                          <div className="p-2 bg-emerald-50 rounded-lg group-hover:bg-emerald-100 transition-colors">
+                            <Monitor size={18} className="text-emerald-600" strokeWidth={2} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-gray-900 text-sm mb-0.5">Nodes</div>
+                            <div className="text-xs text-gray-500">Network nodes & P2P status</div>
+                          </div>
+                        </Link>
+
+                        <Link
                           href="/contracts"
                           className="flex items-start gap-3 px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors group"
                         >

@@ -12,8 +12,9 @@ export default function LeaderboardPage() {
     refetchInterval: 10000,
   })
 
-  const sortedByStake = [...(validators || [])].sort((a, b) => b.stake - a.stake)
-  const sortedByRewards = [...(validators || [])].sort((a, b) => (b.total_rewards || 0) - (a.total_rewards || 0))
+  const validatorArray = Array.isArray(validators) ? validators : []
+  const sortedByStake = [...validatorArray].sort((a, b) => (b.staked_amount || 0) - (a.staked_amount || 0))
+  const sortedByRewards = [...validatorArray].sort((a, b) => (b.total_rewards || 0) - (a.total_rewards || 0))
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
@@ -62,7 +63,7 @@ export default function LeaderboardPage() {
                       <div className="text-xs text-gray-500 font-mono">{validator.address.substring(0, 16)}...</div>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <div className="font-bold text-gray-900">{(validator.stake || 0).toLocaleString()} RAIN</div>
+                      <div className="font-bold text-gray-900">{(validator.staked_amount || 0).toLocaleString()} RAIN</div>
                     </td>
                     <td className="px-6 py-4 text-right">
                       <span className={`px-2 py-1 rounded text-xs font-bold ${

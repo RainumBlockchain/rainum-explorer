@@ -692,3 +692,82 @@ export async function getContractTransactions(address: string): Promise<Transact
     return [];
   }
 }
+
+// ============================================================================
+// VALIDATOR TIER API - Multi-Tier System
+// ============================================================================
+
+export interface TierStats {
+  tier_counts: {
+    tier1: number;
+    tier2: number;
+    tier3: number;
+  };
+  total_validators: number;
+  tier1_percentage: string;
+  tier2_percentage: string;
+  tier3_percentage: string;
+  network_capacity: {
+    tier1_tps: number;
+    tier2_tps: number;
+    tier3_tps: number;
+    total_estimated_tps: number;
+  };
+}
+
+export interface ValidatorsByTier {
+  tier1: {
+    count: number;
+    total_stake: string;
+    validators: ValidatorTierStatus[];
+  };
+  tier2: {
+    count: number;
+    total_stake: string;
+    validators: ValidatorTierStatus[];
+  };
+  tier3: {
+    count: number;
+    total_stake: string;
+    validators: ValidatorTierStatus[];
+  };
+  total_validators: number;
+  total_stake: string;
+}
+
+export interface ValidatorTierStatus {
+  validator_address: string;
+  current_tier: number;
+  stake_amount: string;
+  hardware_verified: boolean;
+  enterprise_verified: boolean;
+  tier_assigned_at: number;
+}
+
+export async function getTierStats(): Promise<TierStats> {
+  const res = await fetch(`${API_BASE}/tier/stats`, {
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('Failed to fetch tier stats');
+  return res.json();
+}
+
+export async function getValidatorsByTier(): Promise<ValidatorsByTier> {
+  const res = await fetch(`${API_BASE}/validators/by-tier`, {
+    cache: 'no-store',
+  });
+  if (!res.ok) throw new Error('Failed to fetch validators by tier');
+  return res.json();
+}
+
+export async function getValidatorTierInfo(address: string) {
+  try {
+    const res = await fetch(`${API_BASE}/validator/${address}/tier`, {
+      cache: 'no-store',
+    });
+    if (!res.ok) return null;
+    return res.json();
+  } catch {
+    return null;
+  }
+}

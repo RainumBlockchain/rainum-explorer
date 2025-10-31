@@ -3,7 +3,7 @@
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { useQuery } from '@tanstack/react-query'
-import { getValidators, getPendingAppeals, type ValidatorInfo, type SlashAppeal } from '@/lib/api/rainum-api'
+import { getValidators, getPendingAppeals, getTierStats, type ValidatorInfo, type SlashAppeal, type TierStats } from '@/lib/api/rainum-api'
 import { Users, Shield, Award, Star, Key, CheckCircle, XCircle, Scale, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar } from '@/components/shared/Avatar'
@@ -11,16 +11,21 @@ import { formatBalance } from '@/lib/utils/format-balance'
 import { formatHash } from '@/lib/utils/format'
 
 const TIER_CONFIG = {
-  1: { name: 'Bronze', color: 'bg-amber-700 text-white', icon: Star },
-  2: { name: 'Silver', color: 'bg-gray-500 text-white', icon: Star },
-  3: { name: 'Gold', color: 'bg-yellow-500 text-white', icon: Star },
-  4: { name: 'Platinum', color: 'bg-purple-600 text-white', icon: Star },
+  1: { name: 'Tier 1 (Public)', color: 'bg-green-600 text-white', icon: Shield, finality: '2s' },
+  2: { name: 'Tier 2 (Premium)', color: 'bg-blue-600 text-white', icon: Award, finality: '800ms' },
+  3: { name: 'Tier 3 (Enterprise)', color: 'bg-yellow-500 text-white', icon: Star, finality: '500ms' },
 }
 
 export default function ValidatorsPage() {
   const { data: validators, isLoading } = useQuery({
     queryKey: ['validators'],
     queryFn: getValidators,
+    refetchInterval: 10000,
+  })
+
+  const { data: tierStats } = useQuery({
+    queryKey: ['tier-stats'],
+    queryFn: getTierStats,
     refetchInterval: 10000,
   })
 

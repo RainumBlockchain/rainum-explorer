@@ -458,12 +458,21 @@ export default function Home() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
           <StatCard
             icon={<Blocks className="text-[#0019ff]" size={20} strokeWidth={2} />}
             title="Block Height"
             value={status?.block_height ? formatNumber(status.block_height) : '...'}
           />
+          {/* Narwhal Consensus Badge */}
+          {status?.consensus === 'Narwhal-Bullshark' && status?.narwhal && (
+            <StatCard
+              icon={<Rocket className="text-orange-500" size={20} strokeWidth={2} />}
+              title="Narwhal Workers"
+              value={`${status.narwhal.worker_count} Active`}
+              subtitle={`Round ${status.narwhal.current_round} • ${status.narwhal.total_certificates} certs`}
+            />
+          )}
           <StatCard
             icon={<Activity className="text-emerald-600" size={20} strokeWidth={2} />}
             title="Transactions Per Second"
@@ -1040,10 +1049,11 @@ export default function Home() {
   )
 }
 
-function StatCard({ icon, title, value }: {
+function StatCard({ icon, title, value, subtitle }: {
   icon: React.ReactNode
   title: string
   value: string | React.ReactNode
+  subtitle?: string
 }) {
   return (
     <div className="relative bg-white rounded-lg border-2 border-gray-200 p-5 hover:border-[#0019ff] hover:shadow-[0_0_20px_rgba(0,25,255,0.1)] transition-all duration-300 group overflow-hidden">
@@ -1061,6 +1071,9 @@ function StatCard({ icon, title, value }: {
           <h3 className="text-[10px] font-black text-gray-500 uppercase tracking-widest">{title}</h3>
         </div>
         <div className="text-2xl font-black text-gray-900 font-mono flex items-center gap-2">{value}</div>
+        {subtitle && (
+          <div className="mt-2 text-xs text-gray-500 font-medium">{subtitle}</div>
+        )}
       </div>
     </div>
   )

@@ -11,6 +11,15 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || '/api/blockchain';
 // TYPE DEFINITIONS
 // ============================================================================
 
+export interface NarwhalStats {
+  current_round: number;
+  total_certificates: number;
+  worker_count: number;
+  pending_blocks: number;
+  pending_signatures: number;
+  ordered_certificates: number;
+}
+
 export interface NetworkStats {
   block_height: number;
   total_transactions: number;
@@ -18,6 +27,8 @@ export interface NetworkStats {
   tps: number;
   total_supply?: number;
   circulating_supply?: number;
+  consensus?: string;
+  narwhal?: NarwhalStats;
 }
 
 export interface Block {

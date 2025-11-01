@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { Search, Blocks, ArrowRightLeft, Users, Database, ChevronDown, Activity, Check, BarChart3, Trophy, BookOpen, Monitor, Code, Play, Package, FileCode } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { SearchCommand } from '@/components/shared/SearchCommand'
@@ -55,11 +56,16 @@ export function Header() {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-2.5 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-[#0019ff] rounded flex items-center justify-center">
-                <Database className="text-white" size={18} strokeWidth={2.5} />
-              </div>
-              <span className="font-bold text-lg text-gray-900">Rainum Explorer</span>
+            <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+              <Image
+                src="/rainum-logo-full.svg"
+                alt="Rainum"
+                width={120}
+                height={32}
+                className="flex-shrink-0"
+              />
+              <span className="font-bold text-lg text-gray-400">|</span>
+              <span className="font-bold text-lg text-gray-900">Explorer</span>
             </Link>
 
             {/* Network Selector */}

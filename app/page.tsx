@@ -115,7 +115,7 @@ export default function Home() {
 
             <div className="relative z-10">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-lg mb-6 shadow-lg">
+              <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded mb-6 shadow-lg">
                 <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
                 <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Live Network</span>
               </div>
@@ -133,9 +133,9 @@ export default function Home() {
               {/* Feature Grid - 2x2 */}
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {/* Dual-VM Support */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-blue-500/30 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-blue-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-violet-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-violet-500 rounded flex items-center justify-center flex-shrink-0">
                       <ArrowRightLeft className="text-white" size={20} strokeWidth={2.5} />
                     </div>
                     <h3 className="font-black text-gray-900 text-sm">Dual-VM Support</h3>
@@ -144,9 +144,9 @@ export default function Home() {
                 </div>
 
                 {/* ZKP Privacy */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-emerald-500/30 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-emerald-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-emerald-500 rounded flex items-center justify-center flex-shrink-0">
                       <Lock className="text-white" size={20} strokeWidth={2.5} />
                     </div>
                     <h3 className="font-black text-gray-900 text-sm">ZKP Privacy</h3>
@@ -155,9 +155,9 @@ export default function Home() {
                 </div>
 
                 {/* Real-Time Data */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-amber-500/30 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-amber-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-amber-500 rounded flex items-center justify-center flex-shrink-0">
                       <Zap className="text-white" size={20} strokeWidth={2.5} />
                     </div>
                     <h3 className="font-black text-gray-900 text-sm">Real-Time Data</h3>
@@ -166,9 +166,9 @@ export default function Home() {
                 </div>
 
                 {/* Cross-VM Calls */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-lg p-5 border-2 border-transparent hover:border-cyan-500/30 transition-all duration-200">
+                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-cyan-500/30 transition-all duration-200">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-cyan-500 rounded flex items-center justify-center flex-shrink-0">
                       <Activity className="text-white" size={20} strokeWidth={2.5} />
                     </div>
                     <h3 className="font-black text-gray-900 text-sm">Cross-VM Calls</h3>
@@ -179,19 +179,19 @@ export default function Home() {
 
               {/* Live Stats */}
               <div className="grid grid-cols-4 gap-3">
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-[#0019ff] leading-tight mb-2">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Last Block</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-emerald-600/30 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-emerald-600/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-emerald-600 leading-tight mb-2">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Current TPS</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-violet-600/30 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-violet-600/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-violet-600 leading-tight mb-2">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Online Now</div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded-lg py-5 px-2 border-2 border-transparent hover:border-amber-600/30 transition-all duration-200 min-h-[100px]">
+                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-amber-600/30 transition-all duration-200 min-h-[100px]">
                   <div className="text-2xl font-black text-amber-600 leading-tight mb-2">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
                   <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Total Supply</div>
                 </div>
@@ -401,8 +401,8 @@ export default function Home() {
                   {/* Centered Content */}
                   <div className="flex-1 flex flex-col justify-center">
                     {/* RainSwap Icon */}
-                    <div className="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300 relative">
-                      <div className="absolute inset-0 bg-purple-400 rounded-xl blur opacity-40"></div>
+                    <div className="w-14 h-14 bg-purple-600 rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300 relative">
+                      <div className="absolute inset-0 bg-purple-400 rounded blur opacity-40"></div>
                       <ArrowRightLeft className="text-white relative z-10" size={28} strokeWidth={2.5} />
                     </div>
 
@@ -493,9 +493,9 @@ export default function Home() {
             icon={<Coins className="text-cyan-600" size={20} strokeWidth={2} />}
             title="Total Supply"
             value={totalSupply ? (
-              <div className="flex items-center gap-2 whitespace-nowrap overflow-hidden">
+              <div className="flex items-center gap-2 w-full overflow-hidden">
                 <RainIcon size={20} className="flex-shrink-0" />
-                <span className={totalSupply > 999999999 ? 'text-xl' : ''}>{formatNumber(totalSupply)} RAIN</span>
+                <span className="truncate text-2xl">{formatNumber(totalSupply)} R</span>
               </div>
             ) : '...'}
           />
@@ -991,7 +991,7 @@ export default function Home() {
           onClick={() => setIsVMInfoOpen(false)}
         >
           <div
-            className="bg-gray-800 rounded-lg max-w-2xl w-full shadow-2xl animate-in zoom-in-95 duration-200"
+            className="bg-gray-800 rounded max-w-2xl w-full shadow-2xl animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
@@ -999,7 +999,7 @@ export default function Home() {
               <h2 className="text-2xl font-bold text-white">Virtual Machine Types</h2>
               <button
                 onClick={() => setIsVMInfoOpen(false)}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 rounded text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"
               >
                 <X size={20} strokeWidth={2} />
               </button>

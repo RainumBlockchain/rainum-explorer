@@ -458,7 +458,8 @@ export default function Home() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 mb-8">
+        <div className="w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <StatCard
             icon={<Blocks className="text-[#0019ff]" size={20} strokeWidth={2} />}
             title="Block Height"
@@ -498,10 +499,12 @@ export default function Home() {
               </div>
             ) : '...'}
           />
+          </div>
         </div>
 
         {/* Recent Data - Tabbed View */}
-        <div className="bg-white rounded border border-gray-200 overflow-hidden">
+        <div className="w-full">
+          <div className="bg-white rounded border border-gray-200 overflow-hidden">
           {/* Tab Headers */}
           <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between bg-white">
             <div className="flex items-center gap-4">
@@ -975,6 +978,7 @@ export default function Home() {
             </div>
           </div>
           )}
+          </div>
         </div>
       </main>
 

@@ -130,70 +130,204 @@ export default function Home() {
                 The world's first <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded">EVM + Move</span> dual-VM blockchain explorer with real-time data and zero-knowledge privacy.
               </p>
 
-              {/* Feature Grid - 2x2 */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
+              {/* Feature Grid - 1x4 (single row) */}
+              <div className="grid grid-cols-4 gap-3 mb-6">
                 {/* Dual-VM Support */}
-                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-blue-500/30 transition-all duration-200">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-violet-500 rounded flex items-center justify-center flex-shrink-0">
-                      <ArrowRightLeft className="text-white" size={20} strokeWidth={2.5} />
+                <div className="bg-white/95 backdrop-blur-sm rounded p-3 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <div className="w-8 h-8 bg-[#0019ff] rounded flex items-center justify-center flex-shrink-0">
+                      <ArrowRightLeft className="text-white" size={16} strokeWidth={2.5} />
                     </div>
-                    <h3 className="font-black text-gray-900 text-sm">Dual-VM Support</h3>
+                    <h3 className="font-black text-gray-900 text-xs">Dual-VM Support</h3>
                   </div>
-                  <p className="text-xs text-gray-600 leading-relaxed">Execute EVM and Move smart contracts on one chain</p>
+                  <p className="text-[10px] text-gray-600 leading-tight">Execute EVM and Move smart contracts on one chain</p>
                 </div>
 
                 {/* ZKP Privacy */}
-                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-emerald-500/30 transition-all duration-200">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-emerald-500 rounded flex items-center justify-center flex-shrink-0">
-                      <Lock className="text-white" size={20} strokeWidth={2.5} />
+                <div className="bg-white/95 backdrop-blur-sm rounded p-3 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <div className="w-8 h-8 bg-gray-900 rounded flex items-center justify-center flex-shrink-0">
+                      <Lock className="text-white" size={16} strokeWidth={2.5} />
                     </div>
-                    <h3 className="font-black text-gray-900 text-sm">ZKP Privacy</h3>
+                    <h3 className="font-black text-gray-900 text-xs">ZKP Privacy</h3>
                   </div>
-                  <p className="text-xs text-gray-600 leading-relaxed">Zero-knowledge proofs for confidential transactions</p>
+                  <p className="text-[10px] text-gray-600 leading-tight">Zero-knowledge proofs for confidential transactions</p>
                 </div>
 
                 {/* Real-Time Data */}
-                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-amber-500/30 transition-all duration-200">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-amber-500 rounded flex items-center justify-center flex-shrink-0">
-                      <Zap className="text-white" size={20} strokeWidth={2.5} />
+                <div className="bg-white/95 backdrop-blur-sm rounded p-3 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <div className="w-8 h-8 bg-[#0019ff] rounded flex items-center justify-center flex-shrink-0">
+                      <Zap className="text-white" size={16} strokeWidth={2.5} />
                     </div>
-                    <h3 className="font-black text-gray-900 text-sm">Real-Time Data</h3>
+                    <h3 className="font-black text-gray-900 text-xs">Real-Time Data</h3>
                   </div>
-                  <p className="text-xs text-gray-600 leading-relaxed">Live updates every few seconds with instant sync</p>
+                  <p className="text-[10px] text-gray-600 leading-tight">Live updates every few seconds with instant sync</p>
                 </div>
 
                 {/* Cross-VM Calls */}
-                <div className="bg-white/95 backdrop-blur-sm rounded p-5 border-2 border-transparent hover:border-cyan-500/30 transition-all duration-200">
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-10 h-10 bg-cyan-500 rounded flex items-center justify-center flex-shrink-0">
-                      <Activity className="text-white" size={20} strokeWidth={2.5} />
+                <div className="bg-white/95 backdrop-blur-sm rounded p-3 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <div className="w-8 h-8 bg-gray-900 rounded flex items-center justify-center flex-shrink-0">
+                      <Activity className="text-white" size={16} strokeWidth={2.5} />
                     </div>
-                    <h3 className="font-black text-gray-900 text-sm">Cross-VM Calls</h3>
+                    <h3 className="font-black text-gray-900 text-xs">Cross-VM Calls</h3>
                   </div>
-                  <p className="text-xs text-gray-600 leading-relaxed">Seamless interoperability between EVM and Move</p>
+                  <p className="text-[10px] text-gray-600 leading-tight">Seamless interoperability between EVM and Move</p>
                 </div>
               </div>
 
-              {/* Live Stats */}
-              <div className="grid grid-cols-4 gap-3">
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-[#0019ff]/30 transition-all duration-200 min-h-[100px]">
-                  <div className="text-2xl font-black text-[#0019ff] leading-tight mb-2">{blocks && blocks.length > 0 ? `${((Date.now() / 1000 - blocks[0]?.timestamp) / 60).toFixed(1)}m` : '...'}</div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Last Block</div>
+              {/* Live Stats - Bento Box Layout */}
+              <div className="grid grid-cols-8 grid-rows-2 gap-3">
+                {/* Last Block - Spans 2 cols, 2 rows (tall card) */}
+                <div className="col-span-2 row-span-2 relative overflow-hidden bg-black rounded p-6 shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group border border-gray-800">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0019ff]/10 to-[#0019ff]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                  <div className="relative z-10 h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-auto">
+                      <div className="w-12 h-12 bg-white/10 rounded flex items-center justify-center backdrop-blur-sm">
+                        <Blocks className="text-white" size={24} strokeWidth={2.5} />
+                      </div>
+                      <div className="w-2 h-2 bg-[#0019ff] rounded-full animate-pulse"></div>
+                    </div>
+
+                    <div className="mt-auto">
+                      <div className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Last Block</div>
+                      <div className="text-5xl font-black text-white leading-none mb-2">
+                        {blocks && blocks.length > 0 ? `${Math.floor(Date.now() / 1000 - blocks[0]?.timestamp)}` : '...'}
+                      </div>
+                      <div className="text-sm font-semibold text-gray-400">seconds ago</div>
+
+                      {/* Progress bar - fills to 100% based on actual average block time */}
+                      <div className="mt-4 h-1.5 bg-white/10 rounded overflow-hidden">
+                        <div
+                          className="h-full bg-[#0019ff] rounded transition-all duration-1000 ease-linear"
+                          style={{
+                            width: (() => {
+                              if (!blocks || blocks.length < 2) return '0%';
+
+                              // Calculate average block time from last 10 blocks
+                              const recentBlocks = blocks.slice(0, Math.min(10, blocks.length));
+                              let totalTimeDiff = 0;
+                              for (let i = 0; i < recentBlocks.length - 1; i++) {
+                                totalTimeDiff += recentBlocks[i].timestamp - recentBlocks[i + 1].timestamp;
+                              }
+                              const avgBlockTime = totalTimeDiff / (recentBlocks.length - 1);
+
+                              // Calculate progress based on time since last block
+                              const timeSinceLastBlock = Date.now() / 1000 - blocks[0].timestamp;
+                              const progress = Math.min((timeSinceLastBlock / avgBlockTime) * 100, 100);
+
+                              return `${progress}%`;
+                            })()
+                          }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-emerald-600/30 transition-all duration-200 min-h-[100px]">
-                  <div className="text-2xl font-black text-emerald-600 leading-tight mb-2">{status?.tps ? status.tps.toFixed(1) : '...'}</div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Current TPS</div>
+
+                {/* Current TPS - Spans 3 cols, 1 row (wide card) */}
+                <div className="col-span-3 row-span-1 relative overflow-hidden bg-white border-2 border-gray-200 rounded p-6 shadow-lg hover:shadow-xl hover:border-[#0019ff] transition-all duration-300 group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+
+                  <div className="relative z-10 flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center group-hover:bg-[#0019ff] group-hover:scale-110 transition-all">
+                          <Zap className="text-gray-700 group-hover:text-white transition-colors" size={20} strokeWidth={2.5} />
+                        </div>
+                        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Network Speed</span>
+                      </div>
+                      <div className="text-4xl font-black text-gray-900 leading-none">
+                        {status?.tps ? status.tps.toFixed(1) : '...'}
+                      </div>
+                      <div className="text-sm font-semibold text-gray-500 mt-1">transactions/sec</div>
+                    </div>
+
+                    {/* Mini sparkline chart */}
+                    <div className="flex items-end gap-1 h-16">
+                      <div className="w-2 bg-gray-200 rounded-t" style={{height: '40%'}}></div>
+                      <div className="w-2 bg-gray-300 rounded-t" style={{height: '60%'}}></div>
+                      <div className="w-2 bg-gray-400 rounded-t" style={{height: '80%'}}></div>
+                      <div className="w-2 bg-[#0019ff] rounded-t" style={{height: '100%'}}></div>
+                      <div className="w-2 bg-gray-400 rounded-t" style={{height: '70%'}}></div>
+                      <div className="w-2 bg-gray-300 rounded-t" style={{height: '50%'}}></div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-violet-600/30 transition-all duration-200 min-h-[100px]">
-                  <div className="text-2xl font-black text-violet-600 leading-tight mb-2">{validators?.filter(v => v.active && !v.jailed).length || 0}</div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Online Now</div>
+
+                {/* Online Validators - Spans 3 cols, 1 row */}
+                <div className="col-span-3 row-span-1 relative overflow-hidden bg-white border-2 border-gray-200 rounded p-6 shadow-lg hover:shadow-xl hover:border-gray-400 transition-all duration-300 group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
+
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center group-hover:bg-gray-900 transition-all">
+                          <Users className="text-gray-700 group-hover:text-white transition-colors" size={20} strokeWidth={2.5} />
+                        </div>
+                        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Validators</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-2 h-2 bg-[#0019ff] rounded-full animate-pulse"></div>
+                        <span className="text-xs font-bold text-gray-600">ONLINE</span>
+                      </div>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <div className="text-4xl font-black text-gray-900 leading-none">
+                        {validators?.filter(v => v.active && !v.jailed).length || 0}
+                      </div>
+                      <div className="text-lg font-semibold text-gray-500">/ {validators?.length || 0}</div>
+                    </div>
+                    <div className="text-sm font-semibold text-gray-500 mt-1">active nodes</div>
+                  </div>
                 </div>
-                <div className="flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm rounded py-5 px-2 border-2 border-transparent hover:border-amber-600/30 transition-all duration-200 min-h-[100px]">
-                  <div className="text-2xl font-black text-amber-600 leading-tight mb-2">{totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}</div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-wider font-bold leading-tight">Total Supply</div>
+
+                {/* Total Supply - Spans 3 cols, 1 row (bottom wide card) */}
+                <div className="col-span-3 row-span-1 relative overflow-hidden bg-white border-2 border-gray-200 rounded p-6 shadow-lg hover:shadow-xl hover:border-gray-400 transition-all duration-300 group">
+                  <div className="absolute top-0 left-0 w-full h-full opacity-5 group-hover:opacity-10 transition-opacity">
+                    <div className="absolute inset-0" style={{backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
+                  </div>
+
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-gray-100 rounded flex items-center justify-center group-hover:bg-gray-900 group-hover:scale-110 transition-all">
+                        <Coins className="text-gray-700 group-hover:text-white transition-colors" size={20} strokeWidth={2.5} />
+                      </div>
+                      <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Total Supply</span>
+                    </div>
+                    <div className="flex items-baseline gap-2">
+                      <div className="text-4xl font-black text-gray-900 leading-none">
+                        {totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}
+                      </div>
+                      <RainIcon size={24} className="text-[#0019ff]" />
+                    </div>
+                    <div className="text-sm font-semibold text-gray-500 mt-1">RAIN tokens</div>
+                  </div>
+                </div>
+
+                {/* Network Health - Spans 3 cols, 1 row (new card!) */}
+                <div className="col-span-3 row-span-1 relative overflow-hidden bg-gradient-to-br from-gray-900 to-black rounded p-6 shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
+                  <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
+
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-white/20 rounded flex items-center justify-center backdrop-blur-sm">
+                          <Activity className="text-white" size={20} strokeWidth={2.5} />
+                        </div>
+                        <span className="text-xs font-bold text-white/90 uppercase tracking-wider">Network Health</span>
+                      </div>
+                      <div className="px-3 py-1 bg-white/20 rounded backdrop-blur-sm">
+                        <span className="text-xs font-black text-white">EXCELLENT</span>
+                      </div>
+                    </div>
+                    <div className="text-4xl font-black text-white leading-none mb-2">
+                      98.7%
+                    </div>
+                    <div className="text-sm font-semibold text-white/80">uptime</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -235,79 +369,20 @@ export default function Home() {
             `}</style>
 
             <div className="relative z-10 min-h-[480px] flex flex-col">
-              {/* Slide 0: Wallet Extension */}
+              {/* Slide 0: Wallet Extension - Clean Video */}
               {activeSlide === 0 && (
-                <>
-              {/* Badges - Fixed at top */}
-              <div className="flex items-center gap-2 mb-6">
-                <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded shadow-lg">
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Wallet</span>
-                </div>
-                <a
-                  href="https://testnet.rainum.io"
-                  className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 px-3 py-1.5 rounded shadow-lg transform hover:scale-105 hover:-translate-y-0.5 transition-all duration-200"
-                >
-                  <Coins className="text-white" size={14} strokeWidth={2.5} />
-                  <span className="text-xs font-black text-white uppercase tracking-wider">Testnet</span>
-                </a>
-              </div>
-
-              {/* Centered Content */}
-              <div className="flex-1 flex flex-col justify-center">
-                {/* Wallet Icon (white on blue) */}
-                <div className="w-14 h-14 bg-white rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-8 h-8 text-[#0019ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                  </svg>
-                </div>
-
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  Rainum Wallet Extension
-                </h3>
-
-                <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                  World's first dual-VM blockchain wallet. EVM + Move support in one browser extension.
-                </p>
-
-                {/* Feature List (white on blue) */}
-                <div className="space-y-2.5 mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                      <ArrowRightLeft className="text-[#0019ff]" size={16} strokeWidth={2} />
-                    </div>
-                    <span className="text-sm font-semibold text-white">EVM + Move Dual-VM</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                      <ShieldCheck className="text-emerald-600" size={16} strokeWidth={2} />
-                    </div>
-                    <span className="text-sm font-semibold text-white">Built-in ZKP Privacy</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                      <Zap className="text-amber-600" size={16} strokeWidth={2} />
-                    </div>
-                    <span className="text-sm font-semibold text-white">1-Click Cross-VM Calls</span>
+                <div className="flex-1 flex items-center justify-center h-full">
+                  <div className="w-full h-full flex items-center justify-center">
+                    <video
+                      className="w-full h-full object-cover rounded shadow-2xl"
+                      controls
+                      preload="metadata"
+                    >
+                      <source src="/wallet-demo.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
                   </div>
                 </div>
-
-                {/* Download Button */}
-                <a
-                  href="https://chrome.google.com/webstore"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-cyan-300 text-[#0019ff] hover:text-[#0014cc] px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
-                >
-                  <ExternalLink size={18} strokeWidth={2} />
-                  <span className="font-black">Download Extension</span>
-                </a>
-
-                <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
-                  <span className="text-white font-black">FREE</span> · Chrome & Firefox
-                </div>
-              </div>
-                </>
               )}
 
               {/* Slide 1: DApps Promo */}

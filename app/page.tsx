@@ -333,32 +333,16 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side - Promo Carousel */}
-          <div className="bg-[#0019ff] rounded border-4 border-white p-8 flex flex-col relative overflow-hidden group hover:shadow-[0_20px_60px_rgba(0,25,255,0.4)] transition-all duration-300">
+          {/* Right Side - Video Only */}
+          <div className="bg-black rounded border-4 border-white relative overflow-hidden group hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)] transition-all duration-300 min-h-[600px]">
             {/* White stripe with animated border */}
-            <div className="absolute top-0 left-0 w-full h-2 bg-white">
+            <div className="absolute top-0 left-0 w-full h-2 bg-white z-20">
               <div className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400" style={{animation: 'slide-right 3s ease-in-out infinite'}}></div>
             </div>
 
             {/* Decorative corner accents */}
-            <div className="absolute top-2 right-2 w-12 h-12 bg-white/10 rounded"></div>
-            <div className="absolute bottom-2 left-2 w-10 h-10 bg-cyan-400/20 rounded"></div>
-
-            {/* Navigation Arrows - Top Right */}
-            <div className="absolute top-4 right-4 z-20 flex gap-1">
-              <button
-                onClick={() => setActiveSlide((prev) => (prev - 1 + 3) % 3)}
-                className="w-6 h-6 bg-white/70 hover:bg-white/90 rounded flex items-center justify-center shadow-sm hover:shadow transition-all"
-              >
-                <ChevronLeft className="text-[#0019ff]" size={14} strokeWidth={2.5} />
-              </button>
-              <button
-                onClick={() => setActiveSlide((prev) => (prev + 1) % 3)}
-                className="w-6 h-6 bg-white/70 hover:bg-white/90 rounded flex items-center justify-center shadow-sm hover:shadow transition-all"
-              >
-                <ChevronRight className="text-[#0019ff]" size={14} strokeWidth={2.5} />
-              </button>
-            </div>
+            <div className="absolute top-2 right-2 w-12 h-12 bg-white/10 rounded z-20"></div>
+            <div className="absolute bottom-2 left-2 w-10 h-10 bg-cyan-400/20 rounded z-20"></div>
 
             <style jsx>{`
               @keyframes slide-right {
@@ -368,167 +352,15 @@ export default function Home() {
               }
             `}</style>
 
-            <div className="relative z-10 min-h-[480px] flex flex-col">
-              {/* Slide 0: Wallet Extension - Clean Video */}
-              {activeSlide === 0 && (
-                <div className="flex-1 flex items-center justify-center h-full">
-                  <div className="w-full h-full flex items-center justify-center">
-                    <video
-                      className="w-full h-full object-cover rounded shadow-2xl"
-                      controls
-                      preload="metadata"
-                    >
-                      <source src="/wallet-demo.mp4" type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
-                  </div>
-                </div>
-              )}
-
-              {/* Slide 1: DApps Promo */}
-              {activeSlide === 1 && (
-                <>
-                  {/* Badge - Fixed at top */}
-                  <div className="mb-6">
-                    <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded shadow-lg">
-                      <div className="w-2 h-2 bg-violet-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Developer</span>
-                    </div>
-                  </div>
-
-                  {/* Centered Content */}
-                  <div className="flex-1 flex flex-col justify-center">
-                    {/* Rocket Icon */}
-                    <div className="w-14 h-14 bg-white rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300">
-                      <Rocket className="text-[#0019ff]" size={28} strokeWidth={2.5} />
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      Build on Rainum
-                    </h3>
-
-                    <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                      Deploy decentralized applications with dual-VM support. Choose EVM, Move, or use both.
-                    </p>
-
-                    {/* Feature List */}
-                    <div className="space-y-2.5 mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                          <Code className="text-[#0019ff]" size={16} strokeWidth={2} />
-                        </div>
-                        <span className="text-sm font-semibold text-white">Full SDK & CLI Tools</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                          <Coins className="text-emerald-600" size={16} strokeWidth={2} />
-                        </div>
-                        <span className="text-sm font-semibold text-white">Low Gas Fees</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-white rounded flex items-center justify-center flex-shrink-0">
-                          <ArrowRightLeft className="text-amber-600" size={16} strokeWidth={2} />
-                        </div>
-                        <span className="text-sm font-semibold text-white">Native Cross-VM Calls</span>
-                      </div>
-                    </div>
-
-                    {/* CTA Buttons */}
-                    <div className="space-y-2">
-                      <a
-                        href="https://docs.rainum.io"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-[#0019ff] px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
-                      >
-                        <Code size={18} strokeWidth={2} />
-                        <span className="font-black">View Documentation</span>
-                      </a>
-                      <a
-                        href="https://github.com/rainum-labs"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 bg-white/20 hover:bg-white/30 border-2 border-white text-white px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
-                      >
-                        <Rocket size={18} strokeWidth={2} />
-                        <span className="font-black">Start Building</span>
-                      </a>
-                    </div>
-
-                    <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
-                      <span className="text-white font-black">OPEN SOURCE</span> · Community Built
-                    </div>
-                  </div>
-                </>
-              )}
-
-              {/* Slide 2: RainSwap DApp Promo */}
-              {activeSlide === 2 && (
-                <>
-                  {/* Badge - Fixed at top */}
-                  <div className="mb-6">
-                    <div className="inline-flex items-center gap-2 bg-white px-3 py-1.5 rounded shadow-lg">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                      <span className="text-xs font-black text-purple-600 uppercase tracking-wider">Live DEX</span>
-                    </div>
-                  </div>
-
-                  {/* Centered Content */}
-                  <div className="flex-1 flex flex-col justify-center">
-                    {/* RainSwap Icon */}
-                    <div className="w-14 h-14 bg-purple-600 rounded flex items-center justify-center mb-3 shadow-lg transform group-hover:scale-110 transition-transform duration-300 relative">
-                      <div className="absolute inset-0 bg-purple-400 rounded blur opacity-40"></div>
-                      <ArrowRightLeft className="text-white relative z-10" size={28} strokeWidth={2.5} />
-                    </div>
-
-                    <h3 className="text-2xl font-bold text-white mb-2">
-                      RainSwap DEX
-                    </h3>
-
-                    <p className="text-blue-100 text-sm leading-relaxed mb-4">
-                      World's first dual-VM decentralized exchange. Swap EVM and Move tokens seamlessly.
-                    </p>
-
-                    {/* Feature List */}
-                    <div className="space-y-2.5 mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
-                          <ArrowRightLeft className="text-white" size={16} strokeWidth={2} />
-                        </div>
-                        <span className="text-sm font-semibold text-white">Swap EVM ↔ Move Tokens</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
-                          <Coins className="text-white" size={16} strokeWidth={2} />
-                        </div>
-                        <span className="text-sm font-semibold text-white">Cross-VM Liquidity Pools</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-purple-600 rounded flex items-center justify-center flex-shrink-0">
-                          <Zap className="text-white" size={16} strokeWidth={2} />
-                        </div>
-                        <span className="text-sm font-semibold text-white">Lightning Fast Swaps</span>
-                      </div>
-                    </div>
-
-                    {/* CTA Button */}
-                    <a
-                      href="https://rainswap.io"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-1 hover:scale-105 transition-all duration-200 text-sm w-full"
-                    >
-                      <ExternalLink size={18} strokeWidth={2} />
-                      <span className="font-black">Launch RainSwap</span>
-                    </a>
-
-                    <div className="mt-3 text-xs text-center text-blue-100 font-semibold">
-                      <span className="text-purple-300 font-black">LIVE ON MAINNET</span> · 50K+ Users
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
+            {/* Video */}
+            <video
+              className="w-full h-full object-cover absolute inset-0"
+              controls
+              preload="metadata"
+            >
+              <source src="https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
 

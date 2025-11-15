@@ -65,7 +65,7 @@ export function Header() {
                 className="flex-shrink-0"
               />
               <span className="font-bold text-lg text-gray-400">|</span>
-              <span className="font-bold text-lg text-gray-900">Explorer</span>
+              <span className="font-normal text-lg text-gray-900">Explorer</span>
             </Link>
 
             {/* Network Selector */}

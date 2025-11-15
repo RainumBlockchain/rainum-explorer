@@ -121,7 +121,7 @@ export default function Home() {
               </div>
 
               {/* Main Title */}
-              <h1 className="text-4xl font-black text-white mb-3 leading-tight">
+              <h1 className="text-4xl font-normal text-white mb-3 leading-tight">
                 Explore Rainum Blockchain
               </h1>
 
@@ -298,10 +298,10 @@ export default function Home() {
                       <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Total Supply</span>
                     </div>
                     <div className="flex items-baseline gap-2">
+                      <RainIcon size={24} className="text-[#0019ff]" />
                       <div className="text-4xl font-black text-gray-900 leading-none">
                         {totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}
                       </div>
-                      <RainIcon size={24} className="text-[#0019ff]" />
                     </div>
                     <div className="text-sm font-semibold text-gray-500 mt-1">RAIN tokens</div>
                   </div>
@@ -356,9 +356,12 @@ export default function Home() {
             <video
               className="w-full h-full object-cover absolute inset-0"
               controls
-              preload="metadata"
+              preload="auto"
+              autoPlay
+              muted
+              loop
             >
-              <source src="https://download.blender.org/demo/movies/BBB/bbb_sunflower_1080p_30fps_normal.mp4" type="video/mp4" />
+              <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

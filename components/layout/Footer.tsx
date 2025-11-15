@@ -99,8 +99,11 @@ export function Footer() {
                   className="brightness-0 invert"
                 />
               </div>
-              <p className="text-xs md:text-sm text-white/80 leading-relaxed mb-4 md:mb-6 max-w-[300px]">
+              <p className="text-xs md:text-sm text-white/80 leading-relaxed mb-2 md:mb-3 max-w-[300px]">
                 High-performance blockchain with 200K+ TPS, dual-VM execution, and enterprise-grade security.
+              </p>
+              <p className="text-xs text-white/60 mb-4 md:mb-6">
+                Powered by: <span className="font-semibold text-white/80">Rainum Labs Ltd.</span>
               </p>
 
               {/* Network Status Cards */}

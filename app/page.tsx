@@ -19,14 +19,14 @@ export default function Home() {
   const [hoveredAddress, setHoveredAddress] = useState<string | null>(null)
   const [hoveredBlockHash, setHoveredBlockHash] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState<'blocks' | 'transactions'>('transactions')
-  const [currentTime, setCurrentTime] = useState(Date.now())
+  const [, forceUpdate] = useState({})
   const [isVMInfoOpen, setIsVMInfoOpen] = useState(false)
   const [activeSlide, setActiveSlide] = useState(0)
 
-  // Update time every second for live age countdown
+  // Force re-render every second for live countdown
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(Date.now())
+      forceUpdate({})
     }, 1000)
     return () => clearInterval(interval)
   }, [])
@@ -49,7 +49,7 @@ export default function Home() {
   }, [])
 
   const getAge = (timestamp: number) => {
-    const seconds = Math.floor((currentTime / 1000 - timestamp))
+    const seconds = Math.floor((Date.now() / 1000 - timestamp))
     if (seconds < 60) return `${seconds}s`
     const minutes = Math.floor(seconds / 60)
     if (minutes < 60) return `${minutes}m`
@@ -114,14 +114,32 @@ export default function Home() {
             `}</style>
 
             <div className="relative z-10">
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded mb-6 shadow-lg">
-                <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
-                <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">Live Network</span>
+              {/* Badge with Live Status */}
+              <div className="inline-flex flex-col gap-2 mb-6 items-start">
+                <div className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded shadow-lg">
+                  <div className="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-black text-[#0019ff] uppercase tracking-wider">
+                    {blocks && blocks.length > 0 ? 'Live Network' : 'Starting...'}
+                  </span>
+                </div>
+                {blocks && blocks.length > 0 && (
+                  <div className="text-[10px] text-white/70 font-normal tracking-wide text-center w-full">
+                    Active since {(() => {
+                      const genesisTime = 1763163328; // Nov 14 2025 23:35:28 UTC
+                      const date = new Date(genesisTime * 1000);
+                      return date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        timeZone: 'UTC'
+                      });
+                    })()}
+                  </div>
+                )}
               </div>
 
               {/* Main Title */}
-              <h1 className="text-4xl font-normal text-white mb-3 leading-tight">
+              <h1 className="text-4xl font-black text-white mb-3 leading-tight">
                 Explore Rainum Blockchain
               </h1>
 
@@ -298,7 +316,7 @@ export default function Home() {
                       <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Total Supply</span>
                     </div>
                     <div className="flex items-baseline gap-2">
-                      <RainIcon size={24} className="text-[#0019ff]" />
+                      <RainIcon size={36} className="text-[#0019ff]" />
                       <div className="text-4xl font-black text-gray-900 leading-none">
                         {totalSupply ? `${(totalSupply / 1000000000).toFixed(1)}B` : '...'}
                       </div>
@@ -307,7 +325,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Network Health - Spans 3 cols, 1 row (new card!) */}
+                {/* Network Health - Spans 3 cols, 1 row */}
                 <div className="col-span-3 row-span-1 relative overflow-hidden bg-gradient-to-br from-gray-900 to-black rounded p-6 shadow-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group">
                   <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAxMCAwIEwgMCAwIDAgMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS1vcGFjaXR5PSIwLjEiIHN0cm9rZS13aWR0aD0iMSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmlkKSIvPjwvc3ZnPg==')] opacity-30"></div>
 
@@ -324,7 +342,7 @@ export default function Home() {
                       </div>
                     </div>
                     <div className="text-4xl font-black text-white leading-none mb-2">
-                      98.7%
+                      99.9%
                     </div>
                     <div className="text-sm font-semibold text-white/80">uptime</div>
                   </div>
@@ -356,10 +374,11 @@ export default function Home() {
             <video
               className="w-full h-full object-cover absolute inset-0"
               controls
-              preload="auto"
+              preload="metadata"
               autoPlay
               muted
               loop
+              playsInline
             >
               <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
               Your browser does not support the video tag.
